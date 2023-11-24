@@ -4,6 +4,7 @@ channels:
   - krande
   - conda-forge
 dependencies:
-  - python=3.12
-  - ada-py
+  - python 3.12
+  - ada-py 0.0.44
   - pytest
+  - python-dotenv 1.0.0
