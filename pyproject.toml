@@ -1,6 +1,6 @@
 [project]
 name = "app-python"
-version = "0.0.0"
+version = "0.0.1"
 authors = [{ name = "John Doe", email = "john.doe@whoknows.com" }]
 
 
