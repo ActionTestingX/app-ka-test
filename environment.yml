@@ -1,0 +1,8 @@
+name: conda-env
+channels:
+  - ifcopenshell
+  - krande
+  - conda-forge
+dependencies:
+  - python=3.12
+  - ada-py
