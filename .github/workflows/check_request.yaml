@@ -60,9 +60,10 @@ jobs:
             with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
                 print(f'{name}={value}', file=fh)
           
-          has_source_key_str = '${{ steps.pr-lint-checker.outputs.has_source_key_secret }}'
-          check_pr_title_str = '${{ steps.pr-lint-checker.outputs.check-pr-title }}'
-          check_release_label_str = '${{ steps.pr-lint-checker.outputs.check-release-label }}'
+          has_source_key_str = '${{ needs.pr-lint-checker.outputs.has_source_key_secret }}'
+          check_pr_title_str = '${{ needs.pr-lint-checker.outputs.check-pr-title }}'
+          check_release_label_str = '${{ needs.pr-lint-checker.outputs.check-release-label }}'
+          
           print(f"{has_source_key_str=} {check_pr_title_str=} {check_release_label_str=}")
           
           # Convert the string values to booleans
