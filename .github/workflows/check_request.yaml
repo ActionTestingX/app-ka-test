@@ -37,7 +37,13 @@ jobs:
           pip install toml==0.10.2
 
       #####################################################################################################################
-      - name: Comment on PR if PR title does not start with fix, fix! etc.
+      - name: Comment on PR
+        if: >-
+          !contains(github.event.pull_request.title, 'fix: ') &&
+          !contains(github.event.pull_request.title, 'fix!: ') &&
+          !contains(github.event.pull_request.title, 'feat: ') &&
+          !contains(github.event.pull_request.title, 'feat!: ') &&
+          !contains(github.event.pull_request.title, 'chore: ')
         uses: actions/github-script@v5
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
@@ -46,9 +52,15 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: 'Pull request title must start with fix: / feat: / fix!: / feat!: / chore: .'
+              body: 'You need to start PR title with fix: /feat: /fix!: /feat!: /chore: '
             })
+
+      - name: check if SOURCE_KEY is set as a secret
+        run: |
+          if [ -z "${{ secrets.SOURCE_KEY }}" ]; then
+            echo "SOURCE_KEY is not set as a secret"
             exit 1
+          fi
 
       - name: Throw if pull request title is missing fix/feat/chore
         if: >-
