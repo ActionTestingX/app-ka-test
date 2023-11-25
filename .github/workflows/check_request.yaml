@@ -37,14 +37,29 @@ jobs:
           pip install toml==0.10.2
 
       #####################################################################################################################
+      - name: Comment on PR if PR title does not start with fix, fix! etc.
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            if [[ ! "${{ github.event.pull_request.title }}" =~ ^(fix: |fix!: |feat: |feat!: |chore: ) ]]; then
+              echo "Pull request title must start with fix: / feat: / fix!: / feat!: / chore: "
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: 'Pull request title must start with fix: / feat: / fix!: / feat!: / chore: .'
+              })
+              exit 1
+            fi
 
       - name: Throw if pull request title is missing fix/feat/chore
-        if: |
-          !contains(github.event.pull_request.title, 'fix: ') 
-          && !contains(github.event.pull_request.title, 'fix!: ') 
-          && !contains(github.event.pull_request.title, 'feat: ') 
-          && !contains(github.event.pull_request.title, 'feat!: ') 
-          && !contains(github.event.pull_request.title, 'chore: ')
+        if: >-
+          !contains(github.event.pull_request.title, 'fix: ') &&
+          !contains(github.event.pull_request.title, 'fix!: ') &&
+          !contains(github.event.pull_request.title, 'feat: ') &&
+          !contains(github.event.pull_request.title, 'feat!: ') &&
+          !contains(github.event.pull_request.title, 'chore: ')
         run: |
           echo "You need to start PR title with fix: /feat: /fix!: /feat!: /chore: "
           Not approved && exit 1
@@ -52,12 +67,12 @@ jobs:
       #####################################################################################################################
 
       - name: Throw is release label is missing
-        if: |
-          !contains(github.event.pull_request.labels.*.name, 'release-auto') 
-          && !contains(github.event.pull_request.labels.*.name, 'release-patch') 
-          && !contains(github.event.pull_request.labels.*.name, 'release-minor') 
-          && !contains(github.event.pull_request.labels.*.name, 'release-major')
-          && !contains(github.event.pull_request.labels.*.name, 'release-skip')
+        if: >-
+          !contains(github.event.pull_request.labels.*.name, 'release-auto') &&
+          !contains(github.event.pull_request.labels.*.name, 'release-patch') &&
+          !contains(github.event.pull_request.labels.*.name, 'release-minor') &&
+          !contains(github.event.pull_request.labels.*.name, 'release-major') &&
+          !contains(github.event.pull_request.labels.*.name, 'release-skip')
         run: |
           echo "You need to set a release tag, release-xyz  (auto, patch, minor, major or skip)"
           Not approved && exit 1
