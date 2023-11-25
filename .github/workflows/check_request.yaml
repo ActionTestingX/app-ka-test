@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   pr-lint-checker:
-    uses: ./.github/workflows/tool-pr-linter.yml
+    uses: ./.github/workflows/tool-pr-linter.yaml
     with:
       python-version: 3.11
     secrets:
@@ -72,8 +72,10 @@ jobs:
           # Construct the body string
           if [has_source_key, check_pr_title, check_release_label] == [True, True, True]:
             body = "👋 Hi there! I've checked your PR and found no issues. Thanks for your contribution!"
+            set_output('LINT_OK', 'true')
           else:
             body = "👋 Hi there! I've checked your PR and found the following issues:\n\n"
+            set_output('LINT_OK', 'false')
           
           if check_pr_title is False:
             body += "\n* You need to start PR title with fix: feat: fix!: feat!: chore:"
@@ -98,6 +100,11 @@ jobs:
               repo: context.repo.repo,
               body: body
             })
+
+      - name: Fail if linting failed
+        if: >-
+          ${{ steps.comment_body.outputs.LINT_OK }} == 'false'
+        run: exit 1
 
       #####################################################################################################################
 
