@@ -66,7 +66,7 @@ jobs:
             if encode_it:
               value = base64.b64encode(value.encode('utf-8')).decode('utf-8')
             with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
-                fh.write(f'{name}={value}')
+                print(f'{name}={value}', file=fh)
           
           has_source_key_str = '${{ needs.pr-lint-checker.outputs.has_source_key_secret }}'
           check_pr_title_str = '${{ needs.pr-lint-checker.outputs.check-pr-title }}'
