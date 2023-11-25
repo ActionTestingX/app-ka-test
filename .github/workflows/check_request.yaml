@@ -9,6 +9,11 @@ on:
 permissions:
   pull-requests: write
 
+# Use concurrency to ensure that only one instance of this workflow is running at a time
+concurrency:
+  group: pr-lint-checker
+  cancel-in-progress: true
+
 jobs:
   pr-lint-checker:
     uses: ./.github/workflows/tool-pr-linter.yaml
