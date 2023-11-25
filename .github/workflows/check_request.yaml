@@ -63,7 +63,8 @@ jobs:
           has_source_key_str = '${{ steps.pr-lint-checker.outputs.has_source_key_secret }}'
           check_pr_title_str = '${{ steps.pr-lint-checker.outputs.check-pr-title }}'
           check_release_label_str = '${{ steps.pr-lint-checker.outputs.check-release-label }}'
-
+          print(f"{has_source_key_str=} {check_pr_title_str=} {check_release_label_str=}"
+          
           # Convert the string values to booleans
           has_source_key = has_source_key_str.lower() != 'false'
           check_pr_title = check_pr_title_str.lower() != 'false'
@@ -71,10 +72,10 @@ jobs:
           
           # Construct the body string
           if [has_source_key, check_pr_title, check_release_label] == [True, True, True]:
-            body = "👋 Hi there! I've checked your PR and found no issues. Thanks for your contribution!"
+            body = "👋 Hi there! I have checked your PR and found no issues. Thanks for your contribution!"
             set_output('LINT_OK', 'true')
           else:
-            body = "👋 Hi there! I've checked your PR and found the following issues:\n\n"
+            body = "👋 Hi there! I have checked your PR and found the following issues:\n\n"
             set_output('LINT_OK', 'false')
           
           if check_pr_title is False:
