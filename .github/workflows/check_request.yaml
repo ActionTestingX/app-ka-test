@@ -2,7 +2,7 @@ name: Lint/Check Pull Request
 
 on:
   pull_request:
-    types: [opened, synchronize, edited, labeled]
+    types: [ opened, synchronize, edited, labeled ]
     branches:
       - main
 
@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.11"]
+        python-version: [ "3.11" ]
 
     steps:
       #####################################################################################################################
@@ -42,16 +42,13 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            if [[ ! "${{ github.event.pull_request.title }}" =~ ^(fix: |fix!: |feat: |feat!: |chore: ) ]]; then
-              echo "Pull request title must start with fix: / feat: / fix!: / feat!: / chore: "
-              github.rest.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: 'Pull request title must start with fix: / feat: / fix!: / feat!: / chore: .'
-              })
-              exit 1
-            fi
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Pull request title must start with fix: / feat: / fix!: / feat!: / chore: .'
+            })
+            exit 1
 
       - name: Throw if pull request title is missing fix/feat/chore
         if: >-
@@ -109,7 +106,7 @@ jobs:
           echo ${{env.JSON_ENABLED}}    
           echo ${{env.JSON_PACKAGE}}
           echo ${{env.JSON_PACKAGE_LOCK}}
-       
+
       #####################################################################################################################
 
       - name: Check if docker image will manage to build with DOCKER_IMAGE_TEAM & DOCKER_IMAGE_NAME
@@ -266,7 +263,7 @@ jobs:
 
           with open('${{ env.GITOPS_FILE }}', 'r') as file:
               code = list(yaml.load_all(file))
-              
+          
               for a in code:
                   if a["kind"] == "${{ env.GITOPS_KIND }}":
                       a${{ env.GITOPS_IMAGE_PATH }} = "${{ secrets.CONTAINER_REGISTRY_ACR_URL }}/${{env.DOCKER_IMAGE_TEAM}}/${{env.DOCKER_IMAGE_NAME}}:${{env.VERSION_ENV_CACHE}}"  
