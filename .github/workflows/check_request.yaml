@@ -11,7 +11,7 @@ permissions:
 
 # Use concurrency to ensure that only one instance of this workflow is running at a time
 concurrency:
-  group: pr-lint-checker
+  group: pr-lint-checker-${{ github.sha }}
   cancel-in-progress: true
 
 jobs:
