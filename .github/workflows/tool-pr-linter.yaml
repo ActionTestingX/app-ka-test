@@ -16,11 +16,9 @@ on:
       check-pr-title:
         description: "Is PR title correct"
         value: ${{ jobs.lintCheck.outputs.check-pr-title }}
-        default: 'true'
       check-release-label:
         description: "Is release label set"
         value: ${{ jobs.lintCheck.outputs.check-release-label }}
-        default: 'true'
 
 jobs:
   lintCheck:

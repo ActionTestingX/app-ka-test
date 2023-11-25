@@ -65,9 +65,9 @@ jobs:
           check_release_label_str = '${{ steps.pr-lint-checker.outputs.check-release-label }}'
 
           # Convert the string values to booleans
-          has_source_key = has_source_key_str.lower() == 'true'
-          check_pr_title = check_pr_title_str.lower() == 'true'
-          check_release_label = check_release_label_str.lower() == 'true'
+          has_source_key = has_source_key_str.lower() != 'false'
+          check_pr_title = check_pr_title_str.lower() != 'false'
+          check_release_label = check_release_label_str.lower() != 'false'
           
           # Construct the body string
           if [has_source_key, check_pr_title, check_release_label] == [True, True, True]:
