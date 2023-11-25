@@ -19,6 +19,9 @@ on:
       check-release-label:
         description: "Is release label set"
         value: ${{ jobs.lintCheck.outputs.check-release-label }}
+    secrets:
+      SOURCE_KEY:
+        required: false
 
 jobs:
   lintCheck:
