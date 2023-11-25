@@ -86,10 +86,10 @@ jobs:
             body += "\n * You need to start PR title with fix: feat: fix!: feat!: chore:"
           
           if check_release_label is False:
-            body += "\n * You need to add a release label to your PR"
+            body += "\n * You need to add a release label to your PR. Valid labels: release-XXX (auto, patch, minor, major or skip)"
           
           if has_source_key is False:
-            body += "\n * You need to add SOURCE_KEY as a secret to your repo"
+            body += "\n * You need to add SOURCE_KEY as a secret to your repo if you want semantic-release to work"
           
           # Set the output
           set_output('body', body, True)
