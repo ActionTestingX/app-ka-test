@@ -2,6 +2,15 @@
 
 
 
+## v0.0.2 (2023-11-25)
+
+### Chore
+
+* chore: use print syntax for github output (#5) ([`fc14db6`](https://github.com/Krande/app-test/commit/fc14db680b17f5909431144b4a9e3f9bbe166562))
+
+* chore: add a bot for commit messages on PR&#39;s (#4) ([`e70480a`](https://github.com/Krande/app-test/commit/e70480a7e2367a4f5eb5e3d8c4694adca11e5f8c))
+
+
 ## v0.0.1 (2023-11-24)
 
 ### Chore
