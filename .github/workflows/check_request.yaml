@@ -113,8 +113,7 @@ jobs:
             })
 
       - name: Fail if linting failed
-        if: >-
-          ${{ steps.comment_body.outputs.LINT_OK }} == 'false'
+        if: '${{ steps.comment_body.outputs.LINT_OK }}' == 'false'
         run: exit 1
 
       #####################################################################################################################
