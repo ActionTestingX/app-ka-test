@@ -60,13 +60,13 @@ jobs:
         shell: python
         run: |
           import os
+          import base64
           
           def set_output(name, value, encode_it=False):
-            import base64
             if encode_it:
               value = base64.b64encode(value.encode('utf-8')).decode('utf-8')
             with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
-                print(f'{name}={value}', file=fh)
+                fh.write(f'{name}={value}')
           
           has_source_key_str = '${{ needs.pr-lint-checker.outputs.has_source_key_secret }}'
           check_pr_title_str = '${{ needs.pr-lint-checker.outputs.check-pr-title }}'
@@ -98,6 +98,8 @@ jobs:
           
           # Set the output
           set_output('body', body, True)
+          
+          print(os.environ['GITHUB_OUTPUT'])
 
       - name: Comment on PR
         uses: actions/github-script@v7
@@ -113,7 +115,8 @@ jobs:
             })
 
       - name: Fail if linting failed
-        if: '${{ steps.comment_body.outputs.LINT_OK }}' == 'false'
+        if: >-
+          ${{ steps.comment_body.outputs.LINT_OK }} == 'false'
         run: exit 1
 
       #####################################################################################################################
