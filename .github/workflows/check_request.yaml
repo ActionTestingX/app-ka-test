@@ -63,7 +63,7 @@ jobs:
           has_source_key_str = '${{ steps.pr-lint-checker.outputs.has_source_key_secret }}'
           check_pr_title_str = '${{ steps.pr-lint-checker.outputs.check-pr-title }}'
           check_release_label_str = '${{ steps.pr-lint-checker.outputs.check-release-label }}'
-          print(f"{has_source_key_str=} {check_pr_title_str=} {check_release_label_str=}"
+          print(f"{has_source_key_str=} {check_pr_title_str=} {check_release_label_str=}")
           
           # Convert the string values to booleans
           has_source_key = has_source_key_str.lower() != 'false'
