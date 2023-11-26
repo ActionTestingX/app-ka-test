@@ -7,3 +7,5 @@ def print_config(file: str):
     """Print because its fun :-)"""
     print(file)
     print_vars("other.py")
+
+
