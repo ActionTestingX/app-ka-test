@@ -158,10 +158,10 @@ jobs:
           
           # Python packaging
           if uses_conda_packaging is True:
-            body += f"\n * You are using conda packaging with package name {conda_pkg_name_str} and version {conda_version_str}"
+            body += f"\n * You are using conda packaging with package name '{conda_pkg_name_str}' and version '{conda_version_str}'"
           
           if uses_pip_packaging is True:
-            body += f"\n * You are using pip packaging with package name {pip_pkg_name_str} and version {pip_version_str}"
+            body += f"\n * You are using pip packaging with package name '{pip_pkg_name_str}' and version '{pip_version_str}'"
           
           # Set the output
           set_output('body', body, True)
