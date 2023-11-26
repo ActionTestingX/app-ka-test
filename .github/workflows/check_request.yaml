@@ -50,10 +50,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install toml==0.10.2
 
-      - name: Checkout git
+      - name: Checkout PR
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Review linting results and create body for comment
         id: comment_body  # Set an ID for this step to reference its outputs
