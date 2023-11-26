@@ -61,7 +61,7 @@ jobs:
 
   pr-lint-review:
     name: Python Check Pull Request
-    needs: [pr-lint-checker, pip-conda-checker, pr-pylint]
+    needs: [ pr-lint-checker, pip-conda-checker, pr-pylint ]
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python
@@ -145,12 +145,16 @@ jobs:
           
           # Python Linting results
           body += "\n\n * Python Linting results:"
+
+          # Start of the table with headers
+          body = "| Tool | Result |\n"
+          body += "|------|--------|\n"
           
-          # Green checkmark or red cross
-          body += "\n   * Pylint: " + ("✅" if pylint_result is True else "❌")
-          body += "\n   * Isort: " + ("✅" if isort_result is True else "❌")
-          body += "\n   * Black: " + ("✅" if black_result is True else "❌")
-          body += "\n   * Ruff: " + ("✅" if ruff_result is True else "❌")
+          # Adding rows for each tool with appropriate checkmark or cross
+          body += "| Pylint | " + ("✅" if pylint_result else "❌") + " |\n"
+          body += "| Isort | " + ("✅" if isort_result else "❌") + " |\n"
+          body += "| Black | " + ("✅" if black_result else "❌") + " |\n"
+          body += "| Ruff | " + ("✅" if ruff_result else "❌") + " |\n"
           
           # Python packaging
           if uses_conda_packaging is True:
@@ -158,7 +162,7 @@ jobs:
           
           if uses_pip_packaging is True:
             body += f"\n * You are using pip packaging with package name {pip_pkg_name_str} and version {pip_version_str}"
-        
+          
           # Set the output
           set_output('body', body, True)
           
