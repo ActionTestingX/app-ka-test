@@ -145,6 +145,7 @@ jobs:
           
           # Python Linting results
           body += "\n\n * Python Linting results:"
+          
           # Green checkmark or red cross
           body += "\n   * Pylint: " + ("✅" if pylint_result is True else "❌")
           body += "\n   * Isort: " + ("✅" if isort_result is True else "❌")
