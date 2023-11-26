@@ -15,6 +15,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+
   pr-lint-checker:
     uses: ./.github/workflows/tool-pr-linter.yaml
     with:
@@ -22,9 +23,17 @@ jobs:
     secrets:
       SOURCE_KEY: ${{ secrets.SOURCE_KEY }}
 
+  pip-conda-checker:
+    uses: ./.github/workflows/tool-conda-pip-checker.yaml
+    with:
+      python-version: 3.11
+    secrets:
+      CONDA_API_KEY: ${{ secrets.CONDA_API_KEY }}
+      PIP_API_KEY: ${{ secrets.PIP_API_KEY }}
+
   pr-lint-review:
     name: Python Check Pull Request
-    needs: pr-lint-checker
+    needs: [pr-lint-checker, pip-conda-checker]
     runs-on: ubuntu-latest
     steps:
       - name: Add Default "release-skip" Label to PR (only if not already added)

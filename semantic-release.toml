@@ -35,6 +35,14 @@ package_lock_json_path = 'package-lock.json'
 # Option added so it can use in a javascript projects later.
 # You want to disable this for python projects
 
+[tool.pip]
+enabled = false
+
+
+[tool.conda]
+enabled = false
+conda_local_dir = "./conda"
+
 [tool.semantic_release]
 version_toml = ["pyproject.toml:project.version"]
 # info
