@@ -129,5 +129,4 @@ jobs:
           else:
             set_output("uses_conda_packaging", 'false')
           
-          
           # Todo: should compare current pyproject.toml version with latest version(s) from pypi and anaconda
