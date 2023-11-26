@@ -7,7 +7,7 @@ Write something useful about the app/script you are making, what it does/solves.
 #### 🧑‍🏭 Work in progress
 * [x] todo 1
 * [x] todo 2
-* [ ] todo 3
+* [x] todo 3
 
 
 <br/><br/><br/>
