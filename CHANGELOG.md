@@ -2,6 +2,43 @@
 
 
 
+## v0.0.3 (2023-11-26)
+
+### Chore
+
+* chore: minor edit (#12) ([`8b3b984`](https://github.com/Krande/app-test/commit/8b3b9846a9cad36f820914702cb23b8112e7d5b5))
+
+### Feature
+
+* feat: conda &amp; pip (#11) ([`81d74c4`](https://github.com/Krande/app-test/commit/81d74c4e6c1a9c5bfac68784e13dcaf8733068c5))
+
+* feat: auto add release skip and check PR fork code (#9) ([`c50aa56`](https://github.com/Krande/app-test/commit/c50aa5622f8b9a15542cbee8e6431e72680231d5))
+
+* feat: use a pull request target (#7) ([`b2dc597`](https://github.com/Krande/app-test/commit/b2dc5979aaa448078cacedad2d24e7bd6ad184df))
+
+### Fix
+
+* fix: add pyproject.toml version and name in review (#21) ([`98a6839`](https://github.com/Krande/app-test/commit/98a6839dcdcfd6d5fd7c41e3dbd669c652a25397))
+
+* fix: minor change (#20) ([`5bf5b90`](https://github.com/Krande/app-test/commit/5bf5b90e88b9bd1ee2db44753e6cd7ec2570e835))
+
+* fix: minor changes (#19) ([`5d8f14b`](https://github.com/Krande/app-test/commit/5d8f14ba22c30e070ec52bafe2d44e5d1ec8600d))
+
+* fix: minor change (#18) ([`7af6a54`](https://github.com/Krande/app-test/commit/7af6a5481c7e6cbf915e90fc0f3b3eeb4bf22442))
+
+* fix: minor change (#17) ([`fd8ef64`](https://github.com/Krande/app-test/commit/fd8ef64ee2f11c0bfc87e824bece2e45c5ee3841))
+
+* fix: minor change (#16) ([`f38531c`](https://github.com/Krande/app-test/commit/f38531cbaa58faec3a625266df092f467fad4208))
+
+### Unknown
+
+* minor change (#15) ([`f0f2bc9`](https://github.com/Krande/app-test/commit/f0f2bc9bf82b15472493372c7726d13018654d2b))
+
+* minor change (#14) ([`09cbee0`](https://github.com/Krande/app-test/commit/09cbee0e215bfc8929fe94af7f38ed23bbcfe0e0))
+
+* minor change (#13) ([`e590971`](https://github.com/Krande/app-test/commit/e59097187ce66581a32002bc2dadba4de45b3080))
+
+
 ## v0.0.2 (2023-11-25)
 
 ### Chore
