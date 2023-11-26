@@ -125,16 +125,19 @@ jobs:
           black_result = black_result_str.lower() != 'false'
           ruff_result = ruff_result_str.lower() != 'false'
           
-          # Construct the body string
-          if [has_source_key, check_pr_title, check_release_label] == [True, True, True]:
-            body = "👋 Hi there! I have checked your PR and found no issues. Thanks for your contribution!"
+          all_checks = [has_source_key, check_pr_title, check_release_label, pylint_result, isort_result, black_result, ruff_result]
+          # check if all_checks are true
+          if all(all_checks):
+            body = "👋 Hi there! I have checked your PR and found no issues. Thanks for your contribution!\n"
             set_output('LINT_OK', 'true')
           else:
             body = "👋 Hi there! I have checked your PR and found the following:\n\n"
             set_output('LINT_OK', 'false')
           
           # PR linting issues
-          body += "\nPR Linting Issues:"
+          if all([has_source_key, check_pr_title, check_release_label]) is False:
+            body += "\nPR Linting Issues:\n"
+          
           if check_pr_title is False:
             body += "\n * ❌ You need to start PR title with fix: feat: fix!: feat!: chore:"
           
