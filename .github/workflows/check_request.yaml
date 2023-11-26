@@ -130,19 +130,19 @@ jobs:
             body = "👋 Hi there! I have checked your PR and found no issues. Thanks for your contribution!"
             set_output('LINT_OK', 'true')
           else:
-            body = "👋 Hi there! I have checked your PR and found the following issues:\n\n"
+            body = "👋 Hi there! I have checked your PR and found the following:\n\n"
             set_output('LINT_OK', 'false')
           
           # PR linting issues
-          body += "\nPR Linting results:"
+          body += "\nPR Linting Issues:"
           if check_pr_title is False:
-            body += "\n * You need to start PR title with fix: feat: fix!: feat!: chore:"
+            body += "\n * ❌ You need to start PR title with fix: feat: fix!: feat!: chore:"
           
           if check_release_label is False:
-            body += "\n * You need to add a release label to your PR. Valid labels: release-XXX (auto, patch, minor, major or skip)"
+            body += "\n * ❌ You need to add a release label to your PR. Valid labels: release-XXX (auto, patch, minor, major or skip)"
           
           if has_source_key is False:
-            body += "\n * You need to add SOURCE_KEY as a secret to your repo if you want semantic-release to work"
+            body += "\n * ❌ You need to add SOURCE_KEY as a secret to your repo if you want semantic-release to work"
           
           # Python Linting results
           body += "\n\nPython Linting results:\n\n"
