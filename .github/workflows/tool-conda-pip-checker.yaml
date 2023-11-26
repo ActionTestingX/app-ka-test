@@ -110,7 +110,7 @@ jobs:
           pip_tool = semantic_data["tool"]["pip"]
           conda_tool = semantic_data["tool"]["conda"]
           
-          # Make a GET request to the URL
+          # Make a GET request to pypi and conda URL's to get the latest version
           if pip_tool["enabled"]:
             package_name = pip_tool.get("name_override", pyproject_data["project"]["name"])
             pypi_url = f"https://pypi.org/pypi/{package_name}/json"
