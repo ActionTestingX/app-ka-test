@@ -68,7 +68,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install toml==0.10.2 requests==2.31.0
+          pip install toml==0.10.2 requests==2.31.0 semver==3.0.1
 
       - name: Collect pip and conda config
         id: collect-version
@@ -84,6 +84,16 @@ jobs:
           def set_output(name, value):
             with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
                 print(f'{name}={value}', file=fh)
+          
+          def make_semver_compatible(version: str) -> str:
+            release_tag = os.environ.get("RELEASE_TAG", "alpha")
+            if  in version and "-" not in version:
+                version = version.replace(release_tag, f"-{release_tag}")
+        
+            elif "a" in version and "-" not in version:
+                version = version.replace("a", "-alpha.")
+        
+            return version
           
           def get_latest_version_from_list_of_versions_by_numeric_sorting(versions: list[str]) -> str:
             latest_version = make_semver_compatible(versions[0])
@@ -128,6 +138,5 @@ jobs:
             set_output("uses_conda_packaging", 'true')
           else:
             set_output("uses_conda_packaging", 'false')
-          
           
           # Todo: should compare current pyproject.toml version with latest version(s) from pypi and anaconda
