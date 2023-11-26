@@ -134,6 +134,7 @@ jobs:
             set_output('LINT_OK', 'false')
           
           # PR linting issues
+          body += "\nPR Linting results:"
           if check_pr_title is False:
             body += "\n * You need to start PR title with fix: feat: fix!: feat!: chore:"
           
@@ -144,10 +145,10 @@ jobs:
             body += "\n * You need to add SOURCE_KEY as a secret to your repo if you want semantic-release to work"
           
           # Python Linting results
-          body += "\n\n * Python Linting results:"
+          body += "\n\nPython Linting results:"
 
           # Start of the table with headers
-          body = "| Tool | Result |\n"
+          body += "| Tool | Result |\n"
           body += "|------|--------|\n"
           
           # Adding rows for each tool with appropriate checkmark or cross
@@ -157,6 +158,9 @@ jobs:
           body += "| Ruff | " + ("✅" if ruff_result else "❌") + " |\n"
           
           # Python packaging
+          if uses_conda_packaging is True or uses_pip_packaging is True:
+            body += "\n\nPython Packaging results:"
+          
           if uses_conda_packaging is True:
             body += f"\n * You are using conda packaging with package name '{conda_pkg_name_str}' and version '{conda_version_str}'"
           
