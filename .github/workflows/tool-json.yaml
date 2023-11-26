@@ -1,0 +1,65 @@
+name: tool-json
+on:
+  workflow_call:
+    inputs:
+      python-version:
+        description: 'Python version'
+        type: string
+        required: false
+        default: '3.11'
+      JSON_ENABLED:
+        description: 'JSON enabled'
+        type: string
+        required: false
+        default: 'false'
+      JSON_PACKAGE:
+        description: 'JSON package.json path'
+        type: string
+        required: false
+        default: 'package.json'
+      JSON_PACKAGE_LOCK:
+        description: 'JSON package-lock.json path'
+        type: string
+        required: false
+        default: 'package-lock.json'
+      VERSION_ENV_CACHE:
+        description: 'Version env cache'
+        type: string
+        required: false
+        default: '0.0.0'
+
+
+jobs:
+  package-json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Python ${{ inputs.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ inputs.python-version }}
+
+      - name: Check if we can write version to ${{ inputs.JSON_PACKAGE }} && ${{ inputs.JSON_PACKAGE_LOCK }}
+        if: inputs.JSON_ENABLED == 'true'
+        shell: python
+        run: |
+          import json
+          import os
+          
+          f = open("${{ inputs.JSON_PACKAGE }}", "r") 
+          data = json.load(f)
+          data["version"] = "${{inputs.VERSION_ENV_CACHE}}"
+
+          dump = json.dumps(data, indent = 4)
+
+          with open("${{ inputs.JSON_PACKAGE }}", "w") as outfile:
+              outfile.write(dump)
+
+          f = open("${{ inputs.JSON_PACKAGE_LOCK }}", "r") 
+          data = json.load(f)
+          data["version"] = "${{inputs.VERSION_ENV_CACHE}}"
+
+          dump = json.dumps(data, indent = 4)
+
+          with open("${{ inputs.JSON_PACKAGE_LOCK }}", "w") as outfile:
+              outfile.write(dump)
+
