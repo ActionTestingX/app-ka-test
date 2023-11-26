@@ -11,7 +11,7 @@ Write something useful about the app/script you are making, what it does/solves.
 <br/><br/>
 
 #### 🧑‍🏭 Work in progress
-* [ ] todo 1
+* [x] todo 1
 * [ ] todo 2
 * [ ] todo 3
 
