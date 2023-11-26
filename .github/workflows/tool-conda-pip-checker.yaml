@@ -12,31 +12,31 @@ on:
     outputs:
       uses_pip_packaging:
         description: 'Uses pip packaging'
-        value: ${{ jobs.lintCheck.outputs.uses_pip_packaging }}
+        value: ${{ jobs.packagingCheck.outputs.uses_pip_packaging }}
       uses_conda_packaging:
         description: 'Uses conda packaging'
-        value: ${{ jobs.lintCheck.outputs.uses_conda_packaging }}
+        value: ${{ jobs.packagingCheck.outputs.uses_conda_packaging }}
       has_pip_api_key_secret:
         description: "Has SOURCE_KEY secret set"
-        value: ${{ jobs.lintCheck.outputs.has_source_key_secret }}
+        value: ${{ jobs.packagingCheck.outputs.has_source_key_secret }}
       has_conda_api_key_secret:
         description: "Is PR title correct"
-        value: ${{ jobs.lintCheck.outputs.check-pr-title }}
+        value: ${{ jobs.packagingCheck.outputs.check-pr-title }}
       check-release-label:
         description: "Is release label set"
-        value: ${{ jobs.lintCheck.outputs.check-release-label }}
+        value: ${{ jobs.packagingCheck.outputs.check-release-label }}
       pip_pkg_name:
         description: "Pip package name"
-        value: ${{ jobs.lintCheck.outputs.pip_pkg_name }}
+        value: ${{ jobs.packagingCheck.outputs.pip_pkg_name }}
       conda_pkg_name:
         description: "Conda package name"
-        value: ${{ jobs.lintCheck.outputs.conda_pkg_name }}
+        value: ${{ jobs.packagingCheck.outputs.conda_pkg_name }}
       pip_version:
         description: "Pip package version"
-        value: ${{ jobs.lintCheck.outputs.pip_version }}
+        value: ${{ jobs.packagingCheck.outputs.pip_version }}
       conda_version:
         description: "Conda package version"
-        value: ${{ jobs.lintCheck.outputs.conda_version }}
+        value: ${{ jobs.packagingCheck.outputs.conda_version }}
     secrets:
       PIP_API_KEY:
         required: false
@@ -44,7 +44,7 @@ on:
         required: false
 
 jobs:
-  toml-read:
+  packagingCheck:
     name: Read toml file containing pip and conda config
     runs-on: ubuntu-latest
     outputs:
