@@ -112,6 +112,8 @@ jobs:
           conda_pkg_name_str = '${{ needs.pip-conda-checker.outputs.conda_pkg_name }}'
           pip_version_str = '${{ needs.pip-conda-checker.outputs.pip_version }}'
           conda_version_str = '${{ needs.pip-conda-checker.outputs.conda_version }}'
+          pyproject_version_str = '${{ needs.pip-conda-checker.outputs.pyproject_version }}'
+          pyproject_name_str = '${{ needs.pip-conda-checker.outputs.pyproject_name }}'
           
           print(f"{has_source_key_str=} {check_pr_title_str=} {check_release_label_str=}")
           
@@ -166,6 +168,8 @@ jobs:
             body += "\n\nPython Packaging results:\n\n"
             body += "| Packaging Type | Package Name | Version |\n"
             body += "|----------------|--------------|---------|\n"
+            
+            body += f"| pyproject.toml | {pyproject_name_str} | {pyproject_version_str} |\n"
           
           if uses_conda_packaging:
               body += f"| Conda | {conda_pkg_name_str} | {conda_version_str} |\n"

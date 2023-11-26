@@ -37,6 +37,12 @@ on:
       conda_version:
         description: "Conda package version"
         value: ${{ jobs.packagingCheck.outputs.conda_version }}
+      pyproject_version:
+        description: "Pyproject.toml version"
+        value: ${{ jobs.packagingCheck.outputs.pyproject_version }}
+      pyproject_name:
+        description: "Pyproject.toml name"
+        value: ${{ jobs.packagingCheck.outputs.pyproject_name }}
     secrets:
       PIP_API_KEY:
         required: false
@@ -54,6 +60,8 @@ jobs:
       conda_pkg_name: ${{ steps.collect-version.outputs.conda_pkg_name }}
       uses_conda_packaging: ${{ steps.collect-version.outputs.uses_conda_packaging }}
       uses_pip_packaging: ${{ steps.collect-version.outputs.uses_pip_packaging }}
+      pyproject_version: ${{ steps.collect-version.outputs.pyproject_version }}
+      pyproject_name: ${{ steps.collect-version.outputs.pyproject_name }}
     steps:
       - name: Checkout git
         uses: actions/checkout@v3
@@ -111,9 +119,15 @@ jobs:
           pip_tool = semantic_data["tool"]["pip"]
           conda_tool = semantic_data["tool"]["conda"]
           
+          pyproject_name = pyproject_data["project"]["name"]
+          project_version = pyproject_data["project"]["version"]
+          
+          set_output("pyproject_version", project_version)
+          set_output("pyproject_name", pyproject_name)
+          
           # Make a GET request to pypi and conda URL's to get the latest version
           if pip_tool["enabled"]:
-            package_name = pip_tool.get("name_override", pyproject_data["project"]["name"])
+            package_name = pip_tool.get("name_override", pyproject_name)
             pypi_url = f"https://pypi.org/pypi/{package_name}/json"
             response = requests.get(pypi_url)
             data = response.json()
@@ -126,7 +140,7 @@ jobs:
             set_output("uses_pip_packaging", 'false')
           
           if conda_tool["enabled"]:
-            package_name = conda_tool.get("name_override", pyproject_data["project"]["name"])
+            package_name = conda_tool.get("name_override", pyproject_name)
             owner = conda_tool['owner']
             conda_url = f"https://api.anaconda.org/package/{owner}/{package_name}"
             response = requests.get(conda_url)
