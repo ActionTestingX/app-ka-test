@@ -145,7 +145,7 @@ jobs:
             body += "\n * You need to add SOURCE_KEY as a secret to your repo if you want semantic-release to work"
           
           # Python Linting results
-          body += "\n\nPython Linting results:"
+          body += "\n\nPython Linting results:\n\n"
 
           # Start of the table with headers
           body += "| Tool | Result |\n"
@@ -159,14 +159,16 @@ jobs:
           
           # Python packaging
           if uses_conda_packaging is True or uses_pip_packaging is True:
-            body += "\n\nPython Packaging results:"
+            body += "\n\nPython Packaging results:\n\n"
+            body = "| Packaging Type | Package Name | Version |\n"
+            body += "|----------------|--------------|---------|\n"
+            
+          if uses_conda_packaging:
+              body += f"| Conda | {conda_pkg_name_str} | {conda_version_str} |\n"
           
-          if uses_conda_packaging is True:
-            body += f"\n * You are using conda packaging with package name '{conda_pkg_name_str}' and version '{conda_version_str}'"
-          
-          if uses_pip_packaging is True:
-            body += f"\n * You are using pip packaging with package name '{pip_pkg_name_str}' and version '{pip_version_str}'"
-          
+          if uses_pip_packaging:
+              body += f"| Pip | {pip_pkg_name_str} | {pip_version_str} |\n"
+
           # Set the output
           set_output('body', body, True)
           
