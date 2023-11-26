@@ -3,6 +3,7 @@
 > 2. Update this readme/delete this note.
 > 3. To use this template, select 'Use this template' option and create a new repository from it.
 
+ 
 
 # Python Project Template
 
