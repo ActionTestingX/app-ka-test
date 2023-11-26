@@ -15,20 +15,16 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  pr-lint-checker:
-    uses: ./.github/workflows/tool-pr-linter.yaml
-    with:
-      python-version: 3.11
-    secrets:
-      SOURCE_KEY: ${{ secrets.SOURCE_KEY }}
-
-  pr-lint-review:
-    name: Python Check Pull Request
-    needs: pr-lint-checker
+  default-label:
+    name: Add label to PR
     runs-on: ubuntu-latest
     steps:
       - name: Add Default "release-skip" Label to PR (only if not already added)
         if: >-
+          !contains(github.event.pull_request.labels.*.name, 'release-auto') &&
+          !contains(github.event.pull_request.labels.*.name, 'release-patch') &&
+          !contains(github.event.pull_request.labels.*.name, 'release-minor') &&
+          !contains(github.event.pull_request.labels.*.name, 'release-major') &&
           !contains(github.event.pull_request.labels.*.name, 'release-skip')
         uses: actions/github-script@v7
         with:
@@ -40,6 +36,28 @@ jobs:
               labels: ['release-skip']
             })
 
+  pr-lint-checker:
+    uses: ./.github/workflows/tool-pr-linter.yaml
+    needs: init-label
+    with:
+      python-version: 3.11
+    secrets:
+      SOURCE_KEY: ${{ secrets.SOURCE_KEY }}
+
+  pip-conda-checker:
+    uses: ./.github/workflows/tool-conda-pip-checker.yaml
+    needs: init-label
+    with:
+      python-version: 3.11
+    secrets:
+      CONDA_API_KEY: ${{ secrets.CONDA_API_KEY }}
+      PIP_API_KEY: ${{ secrets.PIP_API_KEY }}
+
+  pr-lint-review:
+    name: Python Check Pull Request
+    needs: [pr-lint-checker, pip-conda-checker]
+    runs-on: ubuntu-latest
+    steps:
       - name: Set up Python
         uses: actions/setup-python@v3
         with:
@@ -69,9 +87,18 @@ jobs:
             with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
                 print(f'{name}={value}', file=fh)
           
+          # PR lint results
           has_source_key_str = '${{ needs.pr-lint-checker.outputs.has_source_key_secret }}'
           check_pr_title_str = '${{ needs.pr-lint-checker.outputs.check-pr-title }}'
           check_release_label_str = '${{ needs.pr-lint-checker.outputs.check-release-label }}'
+          
+          # Python packaging results
+          uses_conda_packaging_str = '${{ needs.pip-conda-checker.outputs.uses_conda_packaging }}'
+          uses_pip_packaging_str = '${{ needs.pip-conda-checker.outputs.uses_pip_packaging }}'
+          pip_pkg_name_str = '${{ needs.pip-conda-checker.outputs.pip_pkg_name }}'
+          conda_pkg_name_str = '${{ needs.pip-conda-checker.outputs.conda_pkg_name }}'
+          pip_version_str = '${{ needs.pip-conda-checker.outputs.pip_version }}'
+          conda_version_str = '${{ needs.pip-conda-checker.outputs.conda_version }}'
           
           print(f"{has_source_key_str=} {check_pr_title_str=} {check_release_label_str=}")
           
@@ -79,6 +106,8 @@ jobs:
           has_source_key = has_source_key_str.lower() != 'false'
           check_pr_title = check_pr_title_str.lower() != 'false'
           check_release_label = check_release_label_str.lower() != 'false'
+          uses_conda_packaging = uses_conda_packaging_str.lower() != 'false'
+          uses_pip_packaging = uses_pip_packaging_str.lower() != 'false'
           
           # Construct the body string
           if [has_source_key, check_pr_title, check_release_label] == [True, True, True]:
@@ -88,6 +117,7 @@ jobs:
             body = "👋 Hi there! I have checked your PR and found the following issues:\n\n"
             set_output('LINT_OK', 'false')
           
+          # PR linting issues
           if check_pr_title is False:
             body += "\n * You need to start PR title with fix: feat: fix!: feat!: chore:"
           
@@ -97,6 +127,13 @@ jobs:
           if has_source_key is False:
             body += "\n * You need to add SOURCE_KEY as a secret to your repo if you want semantic-release to work"
           
+          # Python packaging
+          if uses_conda_packaging is True:
+            body += f"\n * You are using conda packaging with package name {conda_pkg_name_str} and version {conda_version_str}"
+          
+          if uses_pip_packaging is True:
+            body += f"\n * You are using pip packaging with package name {pip_pkg_name_str} and version {pip_version_str}"
+        
           # Set the output
           set_output('body', body, True)
           
