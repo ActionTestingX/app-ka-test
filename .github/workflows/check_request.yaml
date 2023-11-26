@@ -160,7 +160,7 @@ jobs:
           # Python packaging
           if uses_conda_packaging is True or uses_pip_packaging is True:
             body += "\n\nPython Packaging results:\n\n"
-            body = "| Packaging Type | Package Name | Version |\n"
+            body += "| Packaging Type | Package Name | Version |\n"
             body += "|----------------|--------------|---------|\n"
             
           if uses_conda_packaging:
