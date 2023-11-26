@@ -1,9 +1,3 @@
-> [!NOTE]
-> 1. Read [TEMPLATE.md](https://github.com/Aibel365/python-app-template/blob/main/TEMPLATE.md) and update github settings like it explains.
-> 2. Update this readme/delete this note.
-> 3. To use this template, select 'Use this template' option and create a new repository from it.
-
-
 # Python Project Template
 
 Write something useful about the app/script you are making, what it does/solves.

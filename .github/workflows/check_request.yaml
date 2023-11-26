@@ -61,7 +61,7 @@ jobs:
 
   pr-lint-review:
     name: Python Check Pull Request
-    needs: [pr-lint-checker, pip-conda-checker, pr-pylint]
+    needs: [ pr-lint-checker, pip-conda-checker, pr-pylint ]
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python
@@ -134,6 +134,7 @@ jobs:
             set_output('LINT_OK', 'false')
           
           # PR linting issues
+          body += "\nPR Linting results:"
           if check_pr_title is False:
             body += "\n * You need to start PR title with fix: feat: fix!: feat!: chore:"
           
@@ -144,21 +145,28 @@ jobs:
             body += "\n * You need to add SOURCE_KEY as a secret to your repo if you want semantic-release to work"
           
           # Python Linting results
-          body += "\n\n * Python Linting results:"
+          body += "\n\nPython Linting results:"
+
+          # Start of the table with headers
+          body += "| Tool | Result |\n"
+          body += "|------|--------|\n"
           
-          # Green checkmark or red cross
-          body += "\n   * Pylint: " + ("✅" if pylint_result is True else "❌")
-          body += "\n   * Isort: " + ("✅" if isort_result is True else "❌")
-          body += "\n   * Black: " + ("✅" if black_result is True else "❌")
-          body += "\n   * Ruff: " + ("✅" if ruff_result is True else "❌")
+          # Adding rows for each tool with appropriate checkmark or cross
+          body += "| Pylint | " + ("✅" if pylint_result else "❌") + " |\n"
+          body += "| Isort | " + ("✅" if isort_result else "❌") + " |\n"
+          body += "| Black | " + ("✅" if black_result else "❌") + " |\n"
+          body += "| Ruff | " + ("✅" if ruff_result else "❌") + " |\n"
           
           # Python packaging
+          if uses_conda_packaging is True or uses_pip_packaging is True:
+            body += "\n\nPython Packaging results:"
+          
           if uses_conda_packaging is True:
-            body += f"\n * You are using conda packaging with package name {conda_pkg_name_str} and version {conda_version_str}"
+            body += f"\n * You are using conda packaging with package name '{conda_pkg_name_str}' and version '{conda_version_str}'"
           
           if uses_pip_packaging is True:
-            body += f"\n * You are using pip packaging with package name {pip_pkg_name_str} and version {pip_version_str}"
-        
+            body += f"\n * You are using pip packaging with package name '{pip_pkg_name_str}' and version '{pip_version_str}'"
+          
           # Set the output
           set_output('body', body, True)
           
