@@ -1,4 +1,4 @@
-name: Lint Python ++
+name: tool-pylint
 
 on:
   workflow_call:
