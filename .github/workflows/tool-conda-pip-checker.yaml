@@ -10,6 +10,12 @@ on:
         required: false
         default: '3.11'
     outputs:
+      uses_pip_packaging:
+        description: 'Uses pip packaging'
+        value: ${{ jobs.lintCheck.outputs.uses_pip_packaging }}
+      uses_conda_packaging:
+        description: 'Uses conda packaging'
+        value: ${{ jobs.lintCheck.outputs.uses_conda_packaging }}
       has_pip_api_key_secret:
         description: "Has SOURCE_KEY secret set"
         value: ${{ jobs.lintCheck.outputs.has_source_key_secret }}
@@ -19,6 +25,18 @@ on:
       check-release-label:
         description: "Is release label set"
         value: ${{ jobs.lintCheck.outputs.check-release-label }}
+      pip_pkg_name:
+        description: "Pip package name"
+        value: ${{ jobs.lintCheck.outputs.pip_pkg_name }}
+      conda_pkg_name:
+        description: "Conda package name"
+        value: ${{ jobs.lintCheck.outputs.conda_pkg_name }}
+      pip_version:
+        description: "Pip package version"
+        value: ${{ jobs.lintCheck.outputs.pip_version }}
+      conda_version:
+        description: "Conda package version"
+        value: ${{ jobs.lintCheck.outputs.conda_version }}
     secrets:
       PIP_API_KEY:
         required: false
@@ -29,6 +47,13 @@ jobs:
   toml-read:
     name: Read toml file containing pip and conda config
     runs-on: ubuntu-latest
+    outputs:
+      pip_version: ${{ steps.collect-version.outputs.pip_version }}
+      conda_version: ${{ steps.collect-version.outputs.conda_version }}
+      pip_pkg_name: ${{ steps.collect-version.outputs.pip_pkg_name }}
+      conda_pkg_name: ${{ steps.collect-version.outputs.conda_pkg_name }}
+      uses_conda_packaging: ${{ steps.collect-version.outputs.uses_conda_packaging }}
+      uses_pip_packaging: ${{ steps.collect-version.outputs.uses_pip_packaging }}
     steps:
       - name: Checkout git
         uses: actions/checkout@v3
@@ -46,6 +71,7 @@ jobs:
           pip install toml==0.10.2
 
       - name: Collect pip and conda config
+        id: collect-version
         shell: python
         run: |
           import toml
@@ -59,77 +85,46 @@ jobs:
             with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
                 print(f'{name}={value}', file=fh)
           
+          def get_latest_version_from_list_of_versions_by_numeric_sorting(versions: list[str]) -> str:
+            latest_version = make_semver_compatible(versions[0])
+            for ver in versions[1:]:
+                semver_compatible = make_semver_compatible(ver)
+                if semver.compare(semver_compatible, latest_version) == 1:
+                    latest_version = semver_compatible
+        
+            return latest_version
+          
           print(semantic_data)
           print(pyproject_data)
           
-          # Make a GET request to the URL
-          response = requests.get(pypi_url)
-          data = response.json()
+          pip_tool = semantic_data["tool"]["pip"]
+          conda_tool = semantic_data["tool"]["conda"]
           
-
-  pipCheck:
-    name: Python Check Pull Request
-    needs: tom-read
-    runs-on: ubuntu-latest
-    outputs:
-      has_source_key_secret: ${{ steps.check-source-key.outputs.has_source_key_secret }}
-      check-pr-title: ${{ steps.check-pr-title.outputs.check-pr-title }}
-      check-release-label: ${{ steps.check-release-label.outputs.check-release-label }}
-    steps:
-      #####################################################################################################################
-
-      - name: Set up Python ${{ inputs.python-version }}
-        uses: actions/setup-python@v3
-        with:
-          python-version: ${{ inputs.python-version }}
-
-      #####################################################################################################################
-
-      - name: Checkout git
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      #####################################################################################################################
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install toml==0.10.2
-
-      #####################################################################################################################
-      - name: check if SOURCE_KEY is set as a secret
-        id: check-source-key
-        run: |
-          if [ -z "${{ secrets.SOURCE_KEY }}" ]; then
-            echo "SOURCE_KEY is not set as a secret"
-            echo "has_source_key_secret=false" >> $GITHUB_OUTPUT
-          else
-            echo "has_source_key_secret=true" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Check if pull request title is missing fix/feat/chore
-        id: check-pr-title
-        if: >-
-          !contains(github.event.pull_request.title, 'fix: ') &&
-          !contains(github.event.pull_request.title, 'fix!: ') &&
-          !contains(github.event.pull_request.title, 'feat: ') &&
-          !contains(github.event.pull_request.title, 'feat!: ') &&
-          !contains(github.event.pull_request.title, 'chore: ')
-        run: |
-          echo "You need to start PR title with fix: /feat: /fix!: /feat!: /chore: "
-          echo "check-pr-title=false" >> $GITHUB_OUTPUT
-
-      #####################################################################################################################
-
-      - name: Check if release label is missing
-        id: check-release-label
-        if: >-
-          !contains(github.event.pull_request.labels.*.name, 'release-auto') &&
-          !contains(github.event.pull_request.labels.*.name, 'release-patch') &&
-          !contains(github.event.pull_request.labels.*.name, 'release-minor') &&
-          !contains(github.event.pull_request.labels.*.name, 'release-major') &&
-          !contains(github.event.pull_request.labels.*.name, 'release-skip')
-        run: |
-          echo "You need to set a release tag, release-xyz  (auto, patch, minor, major or skip)"
-          echo "check-release-label=false" >> $GITHUB_OUTPUT
+          # Make a GET request to the URL
+          if pip_tool["enabled"]:
+            package_name = pip_tool.get("name_override", pyproject_data["project"]["name"])
+            pypi_url = f"https://pypi.org/pypi/{package_name}/json"
+            response = requests.get(pypi_url)
+            data = response.json()
+            latest_version = get_latest_version_from_list_of_versions_by_numeric_sorting(list(data["releases"].keys()))
+            
+            set_output("uses_pip_packaging", 'true')
+            set_output("pip_pkg_name", package_name)
+            set_output("pip_version", latest_version)
+          else:
+            set_output("uses_pip_packaging", 'false')
+          
+          if conda_tool["enabled"]:
+            package_name = conda_tool.get("name_override", pyproject_data["project"]["name"])
+            owner = conda_tool['owner']
+            conda_url = f"https://api.anaconda.org/package/{owner}/{package_name}"
+            response = requests.get(conda_url)
+            data = response.json()
+            versions = [file["version"] for file in data["files"]]
+            latest_conda_version = get_latest_version_from_list_of_versions_by_numeric_sorting(versions)
+            
+            set_output("conda_pkg_name", package_name)
+            set_output("conda_version", latest_conda_version)
+            set_output("uses_conda_packaging", 'true')
+          else:
+            set_output("uses_conda_packaging", 'false')

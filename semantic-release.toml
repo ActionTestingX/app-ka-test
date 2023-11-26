@@ -36,12 +36,15 @@ package_lock_json_path = 'package-lock.json'
 # You want to disable this for python projects
 
 [tool.pip]
-enabled = false
-
+enabled = true
+name_override = "ada-py"
 
 [tool.conda]
-enabled = false
+enabled = true
+name_override = "ada-py"
 conda_local_dir = "./conda"
+owner = "Krande"
+channel = "test"
 
 [tool.semantic_release]
 version_toml = ["pyproject.toml:project.version"]
