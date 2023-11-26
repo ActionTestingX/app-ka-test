@@ -75,6 +75,7 @@ jobs:
         shell: python
         run: |
           import toml
+          import semver
           import requests
           import os
 
