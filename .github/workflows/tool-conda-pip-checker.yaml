@@ -87,7 +87,7 @@ jobs:
           
           def make_semver_compatible(version: str) -> str:
             release_tag = os.environ.get("RELEASE_TAG", "alpha")
-            if  in version and "-" not in version:
+            if release_tag in version and "-" not in version:
                 version = version.replace(release_tag, f"-{release_tag}")
         
             elif "a" in version and "-" not in version:
