@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   read-label:
-    name: Python Check Pull Request
+    name: Develop PR code
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python
