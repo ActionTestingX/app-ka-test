@@ -19,12 +19,12 @@ concurrency:
 
 jobs:
   pr-pylint:
-    uses: ActionTestingX/action-toolbox/.github/workflows/.github/workflows/tool-pylint.yaml
+    uses: ActionTestingX/action-toolbox/.github/workflows/.github/workflows/tool-pylint.yaml@ka1
     with:
       python-version: 3.11
 
   pr-lint-checker:
-    uses: ActionTestingX/action-toolbox/.github/workflows/.github/workflows/tool-pr-linter.yaml
+    uses: ActionTestingX/action-toolbox/.github/workflows/.github/workflows/tool-pr-linter.yaml@ka1
     with:
       python-version: 3.11
     secrets:
@@ -40,7 +40,7 @@ jobs:
 
   release-checker:
     needs: pip-conda-checker
-    uses: ActionTestingX/action-toolbox/.github/workflows/tool-semver-bump.yaml
+    uses: ActionTestingX/action-toolbox/.github/workflows/tool-semver-bump.yaml@ka1
     with:
       python-version: 3.11
       current_version: ${{ needs.pip-conda-checker.outputs.pyproject_version }}
