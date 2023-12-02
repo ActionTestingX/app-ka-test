@@ -13,29 +13,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  pr-pylint:
-    uses: ./.github/workflows/tool-pylint.yaml
-    with:
-      python-version: 3.11
-
-  pr-lint-checker:
-    uses: ./.github/workflows/tool-pr-linter.yaml
-    with:
-      python-version: 3.11
-    secrets:
-      SOURCE_KEY: ${{ secrets.SOURCE_KEY }}
-
-  pip-conda-checker:
-    uses: ActionTestingX/action-toolbox/.github/workflows/tool-conda-pip-checker.yaml@ka1
-    with:
-      python-version: 3.11
-    secrets:
-      CONDA_API_KEY: ${{ secrets.CONDA_API_KEY }}
-      PIP_API_KEY: ${{ secrets.PIP_API_KEY }}
-
-  pr-lint-review:
+  read-label:
     name: Python Check Pull Request
-    needs: [ pr-lint-checker, pip-conda-checker, pr-pylint ]
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python
@@ -53,3 +32,14 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Read labels using python
+        env:
+          LABELS: ${{ toJson(github.event.pull_request.labels.*.name) }}
+        shell: python
+        run: |
+          import json
+          import os
+
+          label_names = json.loads(os.environ['LABELS'])
+          print(label_names)
