@@ -1,0 +1,55 @@
+name: Review Pull Request
+
+on:
+  pull_request:
+    types: [ opened, synchronize, edited, labeled ]
+    branches:
+      - main
+
+
+# Use concurrency to ensure that only one instance of this workflow is running at a time
+concurrency:
+  group: pr-lint-checker-dev-${{ github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  pr-pylint:
+    uses: ./.github/workflows/tool-pylint.yaml
+    with:
+      python-version: 3.11
+
+  pr-lint-checker:
+    uses: ./.github/workflows/tool-pr-linter.yaml
+    with:
+      python-version: 3.11
+    secrets:
+      SOURCE_KEY: ${{ secrets.SOURCE_KEY }}
+
+  pip-conda-checker:
+    uses: ActionTestingX/action-toolbox/.github/workflows/tool-conda-pip-checker.yaml@ka1
+    with:
+      python-version: 3.11
+    secrets:
+      CONDA_API_KEY: ${{ secrets.CONDA_API_KEY }}
+      PIP_API_KEY: ${{ secrets.PIP_API_KEY }}
+
+  pr-lint-review:
+    name: Python Check Pull Request
+    needs: [ pr-lint-checker, pip-conda-checker, pr-pylint ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install toml==0.10.2
+
+      - name: Checkout PR
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
