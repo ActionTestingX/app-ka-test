@@ -5,6 +5,7 @@ on:
     types: [ opened, synchronize, edited, labeled ]
     branches:
       - main
+      - develop
 
 
 # Use concurrency to ensure that only one instance of this workflow is running at a time
@@ -25,7 +26,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install toml==0.10.2
+          pip install toml==0.10.2 semver==3.0.1
 
       - name: Checkout PR
         uses: actions/checkout@v3
@@ -39,10 +40,35 @@ jobs:
         shell: python
         run: |
           import json
+          import semver
           import os
-
+          
+          def set_output(name, value):
+            with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
+                print(f'{name}={value}', file=fh)
+          
+          # Use this for now
+          ver = semver.VersionInfo.parse("0.0.1")
+          
           label_names = json.loads(os.environ['LABELS'])
-          if len(label_names) == 0:
-            print("No labels")
+          # filter out labels that are not release labels
+          filtered_labels = [label for label in label_names if label.startswith('release')]
+          print(f'Filtered labels: {filtered_labels}')
+          
+          if len(filtered_labels) == 0:
+            print('No release label found')
           else:
-            print(label_names)
+            print('Found release label')
+            label = filtered_labels[0]
+
+            if label == 'release-major':
+              ver = ver.bump_major()
+            elif label == 'release-minor':
+              ver = ver.bump_minor()
+            elif label == 'release-patch':
+              ver = ver.bump_patch()
+            else:
+              print('release-skip')
+          
+            print(f'Version: {ver}')
+            set_output('release_version', str(ver))
