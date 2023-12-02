@@ -19,12 +19,12 @@ concurrency:
 
 jobs:
   pr-pylint:
-    uses: ActionTestingX/action-toolbox/.github/workflows/.github/workflows/tool-pylint.yaml@ka1
+    uses: ActionTestingX/action-toolbox/.github/workflows/tool-pylint.yaml@ka1
     with:
       python-version: 3.11
 
   pr-lint-checker:
-    uses: ActionTestingX/action-toolbox/.github/workflows/.github/workflows/tool-pr-linter.yaml@ka1
+    uses: ActionTestingX/action-toolbox/.github/workflows/tool-pr-linter.yaml@ka1
     with:
       python-version: 3.11
     secrets:
