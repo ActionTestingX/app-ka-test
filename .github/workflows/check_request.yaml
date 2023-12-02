@@ -47,7 +47,7 @@ jobs:
 
   pr-lint-review:
     name: Python Check Pull Request
-    needs: [ pr-lint-checker, release-checker, pr-pylint ]
+    needs: [ pr-lint-checker, release-checker, pr-pylint, pip-conda-checker ]
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python
@@ -99,6 +99,8 @@ jobs:
           conda_version_str = '${{ needs.pip-conda-checker.outputs.conda_version }}'
           pyproject_version_str = '${{ needs.pip-conda-checker.outputs.pyproject_version }}'
           pyproject_name_str = '${{ needs.pip-conda-checker.outputs.pyproject_name }}'
+          
+          next_pr_version_str = '${{ needs.release-checker.outputs.release_version }}'
           
           print(f"{has_source_key_str=} {check_pr_title_str=} {check_release_label_str=}")
           
@@ -161,7 +163,9 @@ jobs:
           
           if uses_pip_packaging:
               body += f"| Pip | {pip_pkg_name_str} | {pip_version_str} |\n"
-
+          
+          body += f"\n\nNext version: {next_pr_version_str}\n"
+          
           # Set the output
           set_output('body', body, True)
           
