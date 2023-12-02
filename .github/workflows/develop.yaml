@@ -1,4 +1,4 @@
-name: Review Pull Request
+name: Develop Pull Request review bot
 
 on:
   pull_request:
