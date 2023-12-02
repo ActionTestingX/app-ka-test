@@ -2,6 +2,25 @@
 
 
 
+## v0.0.4 (2023-12-02)
+
+### Feature
+
+* feat: use all external tools (#26) ([`716e3a6`](https://github.com/Krande/app-test/commit/716e3a6bbaadf610990c0b6a1a9cf7ccd8973817))
+
+* feat: restructure pr-label eval (#25) ([`dd08f4b`](https://github.com/Krande/app-test/commit/dd08f4b131c57f0312472e8842c7998d49822dd0))
+
+* feat: test using external action (#24) ([`53933b9`](https://github.com/Krande/app-test/commit/53933b9505dc675584f2336fa104327c815c0272))
+
+### Fix
+
+* fix: add needs for pip-conda-checker and include next version based on labels (#30) ([`d15985c`](https://github.com/Krande/app-test/commit/d15985c317aae0b68f20ecad5ed8abec41c5203d))
+
+### Unknown
+
+* Feature/add pr version review (#28) ([`85e0a08`](https://github.com/Krande/app-test/commit/85e0a085b021a099f89257443994c7108aa2e0f4))
+
+
 ## v0.0.3 (2023-11-26)
 
 ### Chore
