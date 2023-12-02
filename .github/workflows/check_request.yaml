@@ -5,6 +5,7 @@ on:
     types: [ opened, synchronize, edited, labeled ]
     branches:
       - main
+      - develop
 
 # todo: integrate tool-docker and tool-gitops
 
@@ -37,9 +38,16 @@ jobs:
       CONDA_API_KEY: ${{ secrets.CONDA_API_KEY }}
       PIP_API_KEY: ${{ secrets.PIP_API_KEY }}
 
+  release-checker:
+    needs: pip-conda-checker
+    uses: ActionTestingX/action-toolbox/.github/workflows/tool-semver-bump.yaml
+    with:
+      python-version: 3.11
+      current_version: ${{ needs.pip-conda-checker.outputs.pyproject_version }}
+
   pr-lint-review:
     name: Python Check Pull Request
-    needs: [ pr-lint-checker, pip-conda-checker, pr-pylint ]
+    needs: [ pr-lint-checker, release-checker, pr-pylint ]
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python
