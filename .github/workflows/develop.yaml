@@ -51,11 +51,16 @@ jobs:
           ver = semver.VersionInfo.parse("0.0.1")
           
           label_names = json.loads(os.environ['LABELS'])
-          ver = None
-          for label in label_names:
-            if not label.startswith('release'):
-              continue
-            
+          # filter out labels that are not release labels
+          filtered_labels = [label for label in label_names if label.startswith('release')]
+          print(f'Filtered labels: {filtered_labels}')
+          
+          if len(filtered_labels) == 0:
+            print('No release label found')
+          else:
+            print('Found release label')
+            label = filtered_labels[0]
+
             if label == 'release-major':
               ver = ver.bump_major()
             elif label == 'release-minor':
@@ -65,6 +70,5 @@ jobs:
             else:
               print('release-skip')
           
-          if ver is not None:
             print(f'Version: {ver}')
             set_output('release_version', str(ver))
