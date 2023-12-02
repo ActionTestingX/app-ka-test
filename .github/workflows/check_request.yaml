@@ -18,12 +18,12 @@ concurrency:
 
 jobs:
   pr-pylint:
-    uses: ./.github/workflows/tool-pylint.yaml
+    uses: ActionTestingX/action-toolbox/.github/workflows/.github/workflows/tool-pylint.yaml
     with:
       python-version: 3.11
 
   pr-lint-checker:
-    uses: ./.github/workflows/tool-pr-linter.yaml
+    uses: ActionTestingX/action-toolbox/.github/workflows/.github/workflows/tool-pr-linter.yaml
     with:
       python-version: 3.11
     secrets:
