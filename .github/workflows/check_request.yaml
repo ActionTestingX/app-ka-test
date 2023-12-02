@@ -52,7 +52,7 @@ jobs:
       SOURCE_KEY: ${{ secrets.SOURCE_KEY }}
 
   pip-conda-checker:
-    uses: ./.github/workflows/tool-conda-pip-checker.yaml
+    uses: ActionTestingX/action-toolbox/.github/workflows/tool-conda-pip-checker.yaml@ka1
     needs: default-label
     with:
       python-version: 3.11
