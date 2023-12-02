@@ -42,4 +42,7 @@ jobs:
           import os
 
           label_names = json.loads(os.environ['LABELS'])
-          print(label_names)
+          if len(label_names) == 0:
+            print("No labels")
+          else:
+            print(label_names)
