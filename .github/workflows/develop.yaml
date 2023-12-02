@@ -1,0 +1,48 @@
+name: Develop Pull Request review bot
+
+on:
+  pull_request:
+    types: [ opened, synchronize, edited, labeled ]
+    branches:
+      - main
+
+
+# Use concurrency to ensure that only one instance of this workflow is running at a time
+concurrency:
+  group: pr-lint-checker-dev-${{ github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  read-label:
+    name: Develop PR code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install toml==0.10.2
+
+      - name: Checkout PR
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Read labels using python
+        env:
+          LABELS: ${{ toJson(github.event.pull_request.labels.*.name) }}
+        shell: python
+        run: |
+          import json
+          import os
+
+          label_names = json.loads(os.environ['LABELS'])
+          if len(label_names) == 0:
+            print("No labels")
+          else:
+            print(label_names)
