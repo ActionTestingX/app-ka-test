@@ -14,12 +14,12 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  pr-review:
-    uses: ActionTestingX/action-toolbox/.github/workflows/tool-review-pr.yaml@ka1
-    with:
-      python-version: 3.11
-    secrets:
-      SOURCE_KEY: ${{ secrets.SOURCE_KEY }}
+#  pr-review:
+#    uses: ActionTestingX/action-toolbox/.github/workflows/tool-review-pr.yaml@ka1
+#    with:
+#      python-version: 3.11
+#    secrets:
+#      SOURCE_KEY: ${{ secrets.SOURCE_KEY }}
 
   python-review:
     uses: ActionTestingX/action-toolbox/.github/workflows/tool-review-python.yaml@ka1
