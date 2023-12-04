@@ -67,6 +67,9 @@ jobs:
             with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
                 print(f'{name}={value}', file=fh)
           
+          def deserialize_str(s):
+            return base64.b64decode(s).decode('utf-8')
+          
           all_checks = []
           
           # PR
@@ -87,8 +90,8 @@ jobs:
             body = "👋 Hi there! I have checked your PR and found the following:\n\n"
             set_output('REVIEW_OK', 'false')
           
-          body += pr_review_str
-          body += python_review_str
+          body += deserialize_str(pr_review_str)
+          body += deserialize_str(python_review_str)
           
           # Set the output
           set_output('body', body, True)
