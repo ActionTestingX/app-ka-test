@@ -26,7 +26,7 @@ jobs:
       SOURCE_KEY: ${{ secrets.SOURCE_KEY }}
 
   python-review:
-    uses: ActionTestingX/action-toolbox/.github/workflows/tool-review-python.yaml
+    uses: ActionTestingX/action-toolbox/.github/workflows/tool-review-python.yaml@ka1
     with:
       python-version: 3.11
     secrets:
