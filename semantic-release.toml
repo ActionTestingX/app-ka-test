@@ -38,6 +38,10 @@ package_lock_json_path = 'package-lock.json'
 [tool.pip]
 enabled = true
 name_override = "ada-py"
+use_custom_pypi_server = false
+# If you set use_pypi_server to true, you need to set these
+# secrets.CUSTOM_PYPI_API_KEY
+# secrets.CUSTOM_PYPI_URL
 
 [tool.conda]
 enabled = true
@@ -45,6 +49,10 @@ name_override = "ada-py"
 conda_local_dir = "./conda"
 owner = "Krande"
 channel = "test"
+use_quetz_server = false
+# If you set use_quetz_server to true, you need to set these
+# secrets.QUETZ_API_KEY
+# secrets.QUETZ_URL
 
 [tool.semantic_release]
 version_toml = ["pyproject.toml:project.version"]
