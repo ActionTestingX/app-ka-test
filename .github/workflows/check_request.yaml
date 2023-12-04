@@ -18,36 +18,24 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  pr-pylint:
-    uses: ActionTestingX/action-toolbox/.github/workflows/tool-pylint.yaml@ka1
-    with:
-      python-version: 3.11
-
-  pr-lint-checker:
-    uses: ActionTestingX/action-toolbox/.github/workflows/tool-pr-linter.yaml@ka1
+  pr-review:
+    uses: ActionTestingX/action-toolbox/.github/workflows/tool-review-pr.yaml@ka1
     with:
       python-version: 3.11
     secrets:
       SOURCE_KEY: ${{ secrets.SOURCE_KEY }}
 
-  pip-conda-checker:
-    uses: ActionTestingX/action-toolbox/.github/workflows/tool-conda-pip-checker.yaml@ka1
+  python-review:
+    uses: ActionTestingX/action-toolbox/.github/workflows/tool-review-python.yaml
     with:
       python-version: 3.11
     secrets:
       CONDA_API_KEY: ${{ secrets.CONDA_API_KEY }}
       PIP_API_KEY: ${{ secrets.PIP_API_KEY }}
 
-  release-checker:
-    needs: pip-conda-checker
-    uses: ActionTestingX/action-toolbox/.github/workflows/tool-semver-bump.yaml@ka1
-    with:
-      python-version: 3.11
-      current_version: ${{ needs.pip-conda-checker.outputs.pyproject_version }}
-
-  pr-lint-review:
+  pr-review-summary:
     name: Python Check Pull Request
-    needs: [ pr-lint-checker, release-checker, pr-pylint, pip-conda-checker ]
+    needs: [ pr-review, python-review ]
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python
@@ -66,7 +54,7 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha }}
 
-      - name: Review linting results and create body for comment
+      - name: Review all results and write a summary
         id: comment_body  # Set an ID for this step to reference its outputs
         shell: python
         run: |
@@ -79,92 +67,28 @@ jobs:
             with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
                 print(f'{name}={value}', file=fh)
           
-          # PR lint results
-          has_source_key_str = '${{ needs.pr-lint-checker.outputs.has_source_key_secret }}'
-          check_pr_title_str = '${{ needs.pr-lint-checker.outputs.check-pr-title }}'
-          check_release_label_str = '${{ needs.pr-lint-checker.outputs.check-release-label }}'
+          all_checks = []
           
-          # Python lint results
-          pylint_result_str = '${{ needs.pr-pylint.outputs.pylint_result }}'
-          isort_result_str = '${{ needs.pr-pylint.outputs.isort_result }}'
-          black_result_str = '${{ needs.pr-pylint.outputs.black_result }}'
-          ruff_result_str = '${{ needs.pr-pylint.outputs.ruff_result }}'
+          # PR
+          pr_review_ok = '${{ needs.pr-review.outputs.pr_review_ok }}'
+          pr_review_str = '${{ needs.pr-review.outputs.pr_review_str }}'
+          all_checks.append(pr_review_ok == 'true')
           
-          # Python packaging results
-          uses_conda_packaging_str = '${{ needs.pip-conda-checker.outputs.uses_conda_packaging }}'
-          uses_pip_packaging_str = '${{ needs.pip-conda-checker.outputs.uses_pip_packaging }}'
-          pip_pkg_name_str = '${{ needs.pip-conda-checker.outputs.pip_pkg_name }}'
-          conda_pkg_name_str = '${{ needs.pip-conda-checker.outputs.conda_pkg_name }}'
-          pip_version_str = '${{ needs.pip-conda-checker.outputs.pip_version }}'
-          conda_version_str = '${{ needs.pip-conda-checker.outputs.conda_version }}'
-          pyproject_version_str = '${{ needs.pip-conda-checker.outputs.pyproject_version }}'
-          pyproject_name_str = '${{ needs.pip-conda-checker.outputs.pyproject_name }}'
+          # Python
+          python_review_ok = '${{ needs.python-review.outputs.python_review_ok }}'
+          python_review_str = '${{ needs.python-review.outputs.python_review_str }}'
+          all_checks.append(python_review_ok == 'true')
           
-          next_pr_version_str = '${{ needs.release-checker.outputs.release_version }}'
-          
-          print(f"{has_source_key_str=} {check_pr_title_str=} {check_release_label_str=}")
-          
-          # Convert the string values to booleans
-          has_source_key = has_source_key_str.lower() != 'false'
-          check_pr_title = check_pr_title_str.lower() != 'false'
-          check_release_label = check_release_label_str.lower() != 'false'
-          uses_conda_packaging = uses_conda_packaging_str.lower() != 'false'
-          uses_pip_packaging = uses_pip_packaging_str.lower() != 'false'
-          pylint_result = pylint_result_str.lower() != 'false'
-          isort_result = isort_result_str.lower() != 'false'
-          black_result = black_result_str.lower() != 'false'
-          ruff_result = ruff_result_str.lower() != 'false'
-          
-          all_checks = [has_source_key, check_pr_title, check_release_label, pylint_result, isort_result, black_result, ruff_result]
           # check if all_checks are true
           if all(all_checks):
             body = "👋 Hi there! I have checked your PR and found no issues. Thanks for your contribution!\n"
-            set_output('LINT_OK', 'true')
+            set_output('REVIEW_OK', 'true')
           else:
             body = "👋 Hi there! I have checked your PR and found the following:\n\n"
-            set_output('LINT_OK', 'false')
+            set_output('REVIEW_OK', 'false')
           
-          # PR linting issues
-          if all([has_source_key, check_pr_title, check_release_label]) is False:
-            body += "\nPR Linting Issues:\n"
-          
-          if check_pr_title is False:
-            body += "\n * ❌ You need to start PR title with fix: feat: fix!: feat!: chore:"
-          
-          if check_release_label is False:
-            body += "\n * ❌ You need to add a release label to your PR. Valid labels: release-XXX (auto, patch, minor, major or skip)"
-          
-          if has_source_key is False:
-            body += "\n * ❌ You need to add SOURCE_KEY as a secret to your repo if you want semantic-release to work"
-          
-          # Python Linting results
-          body += "\n\nPython Linting results:\n\n"
-
-          # Start of the table with headers
-          body += "| Tool | Result |\n"
-          body += "|------|--------|\n"
-          
-          # Adding rows for each tool with appropriate checkmark or cross
-          body += "| Pylint | " + ("✅" if pylint_result else "❌") + " |\n"
-          body += "| Isort | " + ("✅" if isort_result else "❌") + " |\n"
-          body += "| Black | " + ("✅" if black_result else "❌") + " |\n"
-          body += "| Ruff | " + ("✅" if ruff_result else "❌") + " |\n"
-          
-          # Python packaging
-          if uses_conda_packaging is True or uses_pip_packaging is True:
-            body += "\n\nPython Packaging results:\n\n"
-            body += "| Packaging Type | Package Name | Version |\n"
-            body += "|----------------|--------------|---------|\n"
-            
-            body += f"| pyproject.toml | {pyproject_name_str} | {pyproject_version_str} |\n"
-          
-          if uses_conda_packaging:
-              body += f"| Conda | {conda_pkg_name_str} | {conda_version_str} |\n"
-          
-          if uses_pip_packaging:
-              body += f"| Pip | {pip_pkg_name_str} | {pip_version_str} |\n"
-          
-          body += f"\n\nNext version: {next_pr_version_str}\n"
+          body += pr_review_str
+          body += python_review_str
           
           # Set the output
           set_output('body', body, True)
@@ -185,5 +109,5 @@ jobs:
             })
 
       - name: Fail if linting failed
-        if: steps.comment_body.outputs.LINT_OK == 'false'
+        if: steps.comment_body.outputs.REVIEW_OK == 'false'
         run: exit 1
