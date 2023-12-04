@@ -14,8 +14,24 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  read-label:
-    name: Develop PR code
+  pr-review:
+    uses: ActionTestingX/action-toolbox/.github/workflows/tool-review-pr.yaml@ka1
+    with:
+      python-version: 3.11
+    secrets:
+      SOURCE_KEY: ${{ secrets.SOURCE_KEY }}
+
+  python-review:
+    uses: ActionTestingX/action-toolbox/.github/workflows/tool-review-python.yaml@ka1
+    with:
+      python-version: 3.11
+    secrets:
+      CONDA_API_KEY: ${{ secrets.CONDA_API_KEY }}
+      PIP_API_KEY: ${{ secrets.PIP_API_KEY }}
+
+  pr-review-summary:
+    name: Python Check Pull Request
+    needs: [ pr-review, python-review ]
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python
@@ -26,7 +42,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install toml==0.10.2 semver==3.0.1
+          pip install toml==0.10.2
 
       - name: Checkout PR
         uses: actions/checkout@v3
@@ -34,41 +50,43 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha }}
 
-      - name: Read labels using python
-        env:
-          LABELS: ${{ toJson(github.event.pull_request.labels.*.name) }}
+      - name: Review all results and write a summary
+        id: comment_body  # Set an ID for this step to reference its outputs
         shell: python
         run: |
-          import json
-          import semver
           import os
+          import base64
           
-          def set_output(name, value):
+          def set_output(name, value, encode_it=False):
+            if encode_it:
+              value = base64.b64encode(value.encode('utf-8')).decode('utf-8')
             with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
                 print(f'{name}={value}', file=fh)
           
-          # Use this for now
-          ver = semver.VersionInfo.parse("0.0.1")
+          all_checks = []
           
-          label_names = json.loads(os.environ['LABELS'])
-          # filter out labels that are not release labels
-          filtered_labels = [label for label in label_names if label.startswith('release')]
-          print(f'Filtered labels: {filtered_labels}')
+          # PR
+          pr_review_ok = '${{ needs.pr-review.outputs.pr_review_ok }}'
+          pr_review_str = '${{ needs.pr-review.outputs.pr_review_str }}'
+          all_checks.append(pr_review_ok == 'true')
           
-          if len(filtered_labels) == 0:
-            print('No release label found')
+          # Python
+          python_review_ok = '${{ needs.python-review.outputs.python_review_ok }}'
+          python_review_str = '${{ needs.python-review.outputs.python_review_str }}'
+          all_checks.append(python_review_ok == 'true')
+          
+          # check if all_checks are true
+          if all(all_checks):
+            body = "👋 Hi there! I have checked your PR and found no issues. Thanks for your contribution!\n"
+            set_output('REVIEW_OK', 'true')
           else:
-            print('Found release label')
-            label = filtered_labels[0]
-
-            if label == 'release-major':
-              ver = ver.bump_major()
-            elif label == 'release-minor':
-              ver = ver.bump_minor()
-            elif label == 'release-patch':
-              ver = ver.bump_patch()
-            else:
-              print('release-skip')
+            body = "👋 Hi there! I have checked your PR and found the following:\n\n"
+            set_output('REVIEW_OK', 'false')
           
-            print(f'Version: {ver}')
-            set_output('release_version', str(ver))
+          body += pr_review_str
+          body += python_review_str
+          
+          # Set the output
+          set_output('body', body, True)
+          
+          print(os.environ['GITHUB_OUTPUT'])
