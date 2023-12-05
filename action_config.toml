@@ -37,22 +37,27 @@ package_lock_json_path = 'package-lock.json'
 
 [tool.pip]
 enabled = true
-name_override = "ada-py"
+#name_override = "ada-py"
+use_custom_pypi_server = true
 # info
 #
 # You need to set these
 # secrets.PYPI_API_KEY
+# If you use custom pypi server you need to set these
 # secrets.PYPI_URL
 
 [tool.conda]
 enabled = true
-name_override = "ada-py"
+#name_override = "app-py"
 conda_local_dir = "./conda"
-owner = "Krande"
-channel = "test"
-use_quetz = true
-
+owner = "Krandedev"
+label = "test"
+use_quetz = false
+#
 # info
+#
+# You need to set these
+# secrets.CONDA_API_KEY
 #
 # IF you set "use_quetz" you need to set these
 # secrets.QUETZ_API_KEY
