@@ -53,7 +53,7 @@ jobs:
 
   pr-review-summary:
     name: Python Check Pull Request
-    needs: [ pr-review, python-review, docker-review, gitops-review ] 
+    needs: [ load-config, pr-review, python-review, docker-review, gitops-review ]
     if: always() 
     runs-on: ubuntu-latest
     steps:
