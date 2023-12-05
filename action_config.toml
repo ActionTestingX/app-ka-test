@@ -1,5 +1,5 @@
 [tool.docker]
-enabled = false
+enabled = true
 image_name = "app-python"
 team_name = "python-team"
 # INFO:
@@ -14,7 +14,7 @@ team_name = "python-team"
 [tool.gitops]
 enabled = true
 repo = "ActionTestingX/gitops-ka-test"
-file = "cluster_test/test.yaml"
+file = "cluster_test/nginx-deployment-service.yaml"
 kind = "Deployment"
 image_path = '["spec"]["template"]["spec"]["containers"][0]["image"]'
 # INFO:

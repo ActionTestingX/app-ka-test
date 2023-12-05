@@ -100,27 +100,36 @@ jobs:
             return base64.b64decode(s).decode('utf-8')
           
           all_checks = []
+          review_str = ''
           
           # PR
-          pr_review_ok = '${{ needs.pr-review.outputs.pr_review_ok }}'
-          pr_review_str = '${{ needs.pr-review.outputs.pr_review_str }}'
-          all_checks.append(pr_review_ok == 'true')
+          review_str += '${{ needs.pr-review.outputs.pr_review_str }}'
+          all_checks.append('${{ needs.pr-review.outputs.pr_review_ok }}' == 'true')
           
           # Python
-          python_review_ok = '${{ needs.python-review.outputs.python_review_ok }}'
-          python_review_str = '${{ needs.python-review.outputs.python_review_str }}'
-          all_checks.append(python_review_ok == 'true')
+          if ${{ needs.load-config.outputs.python_enabled }} == 'true':
+            review_str += deserialize_str('${{ needs.python-review.outputs.python_review_str }}')
+            all_checks.append('${{ needs.python-review.outputs.python_review_ok }}' == 'true')
+          
+          # Docker
+          if ${{ needs.load-config.outputs.docker_enabled }} == 'true':
+            review_str += deserialize_str('${{ needs.docker-review.outputs.docker_review_str }}')
+            all_checks.append('${{ needs.docker-review.outputs.docker_review_ok }}' == 'true')
+          
+          # GitOps
+          if ${{ needs.load-config.outputs.gitops_enabled }} == 'true':
+            review_str += deserialize_str('${{ needs.gitops-review.outputs.gitops_review_str }}')
+            all_checks.append('${{ needs.gitops-review.outputs.gitops_review_ok }}' == 'true')
           
           # check if all_checks are true
           if all(all_checks):
-            body = "👋 Hi there! I have checked your PR and found no issues. Thanks for your contribution!\n"
+            header = "👋 Hi there! I have checked your PR and found no issues. Thanks for your contribution!\n"
             set_output('REVIEW_OK', 'true')
           else:
-            body = "👋 Hi there! I have checked your PR and found the following:\n\n"
+            header = "👋 Hi there! I have checked your PR and found the following:\n\n"
             set_output('REVIEW_OK', 'false')
           
-          body += deserialize_str(pr_review_str)
-          body += deserialize_str(python_review_str)
+          body = header + review_str
           
           # Set the output
           set_output('body', body, True)
