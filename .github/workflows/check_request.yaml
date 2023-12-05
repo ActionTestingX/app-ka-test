@@ -60,8 +60,7 @@ jobs:
       python-version: 3.11
     secrets:
       CONTAINER_REGISTRY_ACR_URL: ${{ secrets.CONTAINER_REGISTRY_ACR_URL }}
-      CONTAINER_REGISTRY_ACR_USERNAME: ${{ secrets.CONTAINER_REGISTRY_ACR_USERNAME }}
-      CONTAINER_REGISTRY_ACR_PASSWORD: ${{ secrets.CONTAINER_REGISTRY_ACR_PASSWORD }}
+      SOURCE_KEY: ${{ secrets.SOURCE_KEY }}
       GITOPS_KEY: ${{ secrets.GITOPS_KEY }}
 
   pr-review-summary:
