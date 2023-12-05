@@ -7,8 +7,6 @@ on:
       - main
       - develop
 
-# todo: integrate tool-docker and tool-gitops
-
 permissions:
   pull-requests: write
 
@@ -65,7 +63,8 @@ jobs:
 
   pr-review-summary:
     name: Python Check Pull Request
-    needs: [ pr-review, python-review, docker-review, gitops-review ]
+    needs: [ pr-review, python-review, docker-review, gitops-review ] 
+    if: always() 
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python
