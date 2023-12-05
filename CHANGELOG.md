@@ -2,6 +2,19 @@
 
 
 
+## v0.0.6 (2023-12-05)
+
+### Fix
+
+* fix: update conditional handling (#41) ([`4b2ad87`](https://github.com/ActionTestingX/app-ka-test/commit/4b2ad870f4cf0ca8fcc96d8e45abca4eb0c425b9))
+
+### Unknown
+
+* rewrite README.md (#40) ([`6626bf0`](https://github.com/ActionTestingX/app-ka-test/commit/6626bf0441a6f4410d5bf04b492acbfb82861934))
+
+* update develop.yaml (#39) ([`fb47641`](https://github.com/ActionTestingX/app-ka-test/commit/fb4764168726b0508b62257f5a8dc5d6b42a82cc))
+
+
 ## v0.0.5 (2023-12-05)
 
 ### Chore
