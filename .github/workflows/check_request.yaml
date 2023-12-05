@@ -93,7 +93,7 @@ jobs:
           review_str = ''
           
           # PR
-          review_str += '${{ needs.pr-review.outputs.pr_review_str }}'
+          review_str += deserialize_str('${{ needs.pr-review.outputs.pr_review_str }}')
           all_checks.append('${{ needs.pr-review.outputs.pr_review_ok }}' == 'true')
           
           # Python
