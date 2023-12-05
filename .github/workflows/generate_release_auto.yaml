@@ -116,7 +116,7 @@ jobs:
           import toml
           import os
 
-          data = toml.load("semantic-release.toml")
+          data = toml.load("action_config.toml")
 
           def set_output(name, value):
             with open(os.environ['GITHUB_ENV'], 'a') as fh:
@@ -187,7 +187,7 @@ jobs:
           && !contains( fromJSON(steps.PR.outputs.pr).labels.*.name, 'release-minor')
           && !contains( fromJSON(steps.PR.outputs.pr).labels.*.name, 'release-major')
         run: |
-          semantic-release --config semantic-release.toml version --changelog --vcs-release
+          semantic-release --config action_config.toml version --changelog --vcs-release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -201,7 +201,7 @@ jobs:
           && !contains( fromJSON(steps.PR.outputs.pr).labels.*.name, 'release-minor')
           && !contains( fromJSON(steps.PR.outputs.pr).labels.*.name, 'release-major')
         run: |
-          semantic-release --config semantic-release.toml version --changelog --patch --vcs-release
+          semantic-release --config action_config.toml version --changelog --patch --vcs-release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -215,7 +215,7 @@ jobs:
           && contains( fromJSON(steps.PR.outputs.pr).labels.*.name, 'release-minor')
           && !contains( fromJSON(steps.PR.outputs.pr).labels.*.name, 'release-major')
         run: |
-          semantic-release --config semantic-release.toml version --changelog --minor --vcs-release
+          semantic-release --config action_config.toml version --changelog --minor --vcs-release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -229,7 +229,7 @@ jobs:
           && !contains( fromJSON(steps.PR.outputs.pr).labels.*.name, 'release-minor')
           && contains( fromJSON(steps.PR.outputs.pr).labels.*.name, 'release-major')
         run: |
-          semantic-release --config semantic-release.toml version --changelog --major --vcs-release
+          semantic-release --config action_config.toml version --changelog --major --vcs-release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -310,7 +310,7 @@ jobs:
           import toml
           import os
 
-          data = toml.load("semantic-release.toml")
+          data = toml.load("action_config.toml")
 
           def set_output(name, value):
             with open(os.environ['GITHUB_ENV'], 'a') as fh:
