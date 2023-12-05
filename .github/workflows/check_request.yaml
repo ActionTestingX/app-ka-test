@@ -7,8 +7,6 @@ on:
       - main
       - develop
 
-# todo: integrate tool-docker and tool-gitops
-
 permissions:
   pull-requests: write
 
