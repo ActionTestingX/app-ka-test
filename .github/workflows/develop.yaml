@@ -125,5 +125,5 @@ jobs:
 
           # Set the output
           set_output('body', body, True)
-
-          print(os.environ['GITHUB_OUTPUT'])
+          
+          print(body)
