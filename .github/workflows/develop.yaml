@@ -32,7 +32,7 @@ jobs:
     if : ${{ needs.load-config.outputs.python_enabled == 'true' }}
     secrets:
       CONDA_API_KEY: ${{ secrets.CONDA_API_KEY }}
-      PIP_API_KEY: ${{ secrets.PIP_API_KEY }}
+      PYPI_API_KEY: ${{ secrets.PYPI_API_KEY }}
 
   docker-review:
     uses: ActionTestingX/action-toolbox/.github/workflows/tool-review-docker.yaml@ka1
@@ -99,17 +99,17 @@ jobs:
           #all_checks.append('${{ needs.pr-review.outputs.pr_review_ok }}' == 'true')
 
           # Python
-          if ${{ needs.load-config.outputs.python_enabled }} == 'true':
+          if ${{ needs.load-config.outputs.python_enabled }}:
             review_str += deserialize_str('${{ needs.python-review.outputs.python_review_str }}')
             all_checks.append('${{ needs.python-review.outputs.python_review_ok }}' == 'true')
 
           # Docker
-          if ${{ needs.load-config.outputs.docker_enabled }} == 'true':
+          if ${{ needs.load-config.outputs.docker_enabled }}:
             review_str += deserialize_str('${{ needs.docker-review.outputs.docker_review_str }}')
             all_checks.append('${{ needs.docker-review.outputs.docker_review_ok }}' == 'true')
 
           # GitOps
-          if ${{ needs.load-config.outputs.gitops_enabled }} == 'true':
+          if ${{ needs.load-config.outputs.gitops_enabled }}:
             review_str += deserialize_str('${{ needs.gitops-review.outputs.gitops_review_str }}')
             all_checks.append('${{ needs.gitops-review.outputs.gitops_review_ok }}' == 'true')
 
