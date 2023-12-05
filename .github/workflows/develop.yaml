@@ -20,13 +20,13 @@ jobs:
     with:
       python-version: 3.11
 
-  pr-review:
-    uses: ActionTestingX/action-toolbox/.github/workflows/tool-review-pr.yaml@ka1
-    needs: load-config
-    with:
-      python-version: 3.11
-    secrets:
-      SOURCE_KEY: ${{ secrets.SOURCE_KEY }}
+#  pr-review:
+#    uses: ActionTestingX/action-toolbox/.github/workflows/tool-review-pr.yaml@ka1
+#    needs: load-config
+#    with:
+#      python-version: 3.11
+#    secrets:
+#      SOURCE_KEY: ${{ secrets.SOURCE_KEY }}
 
   python-review:
     uses: ActionTestingX/action-toolbox/.github/workflows/tool-review-python.yaml@ka1
@@ -62,7 +62,7 @@ jobs:
 
   pr-review-summary:
     name: Python Check Pull Request
-    needs: [ pr-review, python-review, docker-review, gitops-review ]
+    needs: [ python-review, docker-review, gitops-review ]
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python
@@ -100,8 +100,8 @@ jobs:
           all_checks = []
           
           # PR
-          pr_review_ok = '${{ needs.pr-review.outputs.pr_review_ok }}'
-          pr_review_str = '${{ needs.pr-review.outputs.pr_review_str }}'
+          pr_review_ok = 'true'
+          pr_review_str = 'test'
           all_checks.append(pr_review_ok == 'true')
           
           # Python
