@@ -86,7 +86,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Review all results and write a summary
-        id: comment_body  # Set an ID for this step to reference its outputs
+        id: comment_body
         shell: python
         run: |
           import os
