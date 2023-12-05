@@ -17,8 +17,6 @@ concurrency:
 jobs:
   load-config:
     uses: ActionTestingX/action-toolbox/.github/workflows/tool-load-config.yaml@ka1
-    with:
-      python-version: 3.11
 
 #  pr-review:
 #    uses: ActionTestingX/action-toolbox/.github/workflows/tool-review-pr.yaml@ka1
@@ -32,8 +30,6 @@ jobs:
     uses: ActionTestingX/action-toolbox/.github/workflows/tool-review-python.yaml@ka1
     needs: load-config
     if : ${{ needs.load-config.outputs.python_enabled == 'true' }}
-    with:
-      python-version: 3.11
     secrets:
       CONDA_API_KEY: ${{ secrets.CONDA_API_KEY }}
       PIP_API_KEY: ${{ secrets.PIP_API_KEY }}
@@ -42,8 +38,7 @@ jobs:
     uses: ActionTestingX/action-toolbox/.github/workflows/tool-review-docker.yaml@ka1
     needs: load-config
     if : ${{ needs.load-config.outputs.docker_enabled == 'true' }}
-    with:
-      python-version: 3.11
+
     secrets:
       CONTAINER_REGISTRY_ACR_URL: ${{ secrets.CONTAINER_REGISTRY_ACR_URL }}
       CONTAINER_REGISTRY_ACR_USERNAME: ${{ secrets.CONTAINER_REGISTRY_ACR_USERNAME }}
@@ -53,8 +48,6 @@ jobs:
     uses: ActionTestingX/action-toolbox/.github/workflows/tool-review-gitops.yaml@ka1
     needs: load-config
     if : ${{ needs.load-config.outputs.gitops_enabled == 'true' }}
-    with:
-      python-version: 3.11
     secrets:
       CONTAINER_REGISTRY_ACR_URL: ${{ secrets.CONTAINER_REGISTRY_ACR_URL }}
       SOURCE_KEY: ${{ secrets.SOURCE_KEY }}
