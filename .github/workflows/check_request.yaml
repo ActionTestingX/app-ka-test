@@ -19,6 +19,9 @@ jobs:
   load-config:
     uses: ActionTestingX/action-toolbox/.github/workflows/tool-load-config.yaml@ka1
 
+  semantic-release-collect:
+    uses: ActionTestingX/action-toolbox/.github/workflows/tool-collect-semantic-version.yaml@ka1
+
   pr-review:
     uses: ActionTestingX/action-toolbox/.github/workflows/tool-review-pr.yaml@ka1
     needs: load-config
