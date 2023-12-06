@@ -54,7 +54,7 @@ jobs:
   pr-review-summary:
     name: Python Check Pull Request
     needs: [ load-config, pr-review, python-review, docker-review, gitops-review ]
-    if: always() 
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python
@@ -142,7 +142,7 @@ jobs:
             });
         
             // Find the last comment made by the bot
-            const botComment = comments.data.reverse().find(comment => comment.user.login === 'github-actions');
+            const botComment = comments.data.reverse().find(comment => comment.user.login === 'github-actions[bot]');
         
             // If a previous comment by the bot exists, delete it
             if (botComment) {
