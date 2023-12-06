@@ -2,6 +2,19 @@
 
 
 
+## v0.0.7 (2023-12-06)
+
+### Chore
+
+* chore: change name of github actions bot (#44) ([`4ba1d10`](https://github.com/ActionTestingX/app-ka-test/commit/4ba1d10bc622b83fe4b81401c543747d34d12e72))
+
+* chore: minor change (#42) ([`64e852d`](https://github.com/ActionTestingX/app-ka-test/commit/64e852d3c09f869dbcf7112e5d55d466566a8fd4))
+
+### Fix
+
+* fix: minor change (#43) ([`187a7b9`](https://github.com/ActionTestingX/app-ka-test/commit/187a7b9683287410ebf40fee261da6cb84d903c3))
+
+
 ## v0.0.6 (2023-12-05)
 
 ### Fix
