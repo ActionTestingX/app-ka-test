@@ -1,11 +1,14 @@
 name: Develop Pull Request review bot
 
 on:
-  pull_request:
-    types: [ opened, synchronize, edited, labeled ]
+  push:
     branches:
-      - main
-      - develop
+      - donotrun
+#  pull_request:
+#    types: [ opened, synchronize, edited, labeled ]
+#    branches:
+#      - main
+#      - develop
 
 
 # Use concurrency to ensure that only one instance of this workflow is running at a time

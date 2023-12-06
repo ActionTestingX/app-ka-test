@@ -126,12 +126,40 @@ jobs:
           
           print(body)
 
+      - name: Delete previous bot comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue_number = context.issue.number
+            const owner = context.repo.owner
+            const repo = context.repo.repo
+        
+            // List all comments on the PR
+            const comments = await github.rest.issues.listComments({
+              issue_number,
+              owner,
+              repo
+            });
+        
+            // Find the last comment made by the bot
+            const botComment = comments.data.reverse().find(comment => comment.user.login === 'github-actions');
+        
+            // If a previous comment by the bot exists, delete it
+            if (botComment) {
+              await github.rest.issues.deleteComment({
+                owner,
+                repo,
+                comment_id: botComment.id
+              });
+            }
+
       - name: Comment on PR
         uses: actions/github-script@v7
         with:
           script: |
             const bodyBase64 = '${{ steps.comment_body.outputs.body }}'
             const body = Buffer.from(bodyBase64, 'base64').toString('utf-8')
+            
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
