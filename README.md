@@ -1,3 +1,3 @@
 # Python Project Example
 
-Used for developing github actions.
+Used for developing a github actions toolbox for automated PR checks and package releases.
