@@ -59,7 +59,7 @@ use_custom_quetz_server = false
 #
 # info
 #
-# If you are uploading to public/private anaconda you need to set theis
+# If you are uploading to public/private anaconda you need to set this
 # secrets.CONDA_API_TOKEN
 #
 # Or if you will use a private QUETZ server you need to set these

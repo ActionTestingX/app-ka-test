@@ -1,4 +1,4 @@
-{% name = "app-python" %}
+{% set name = "app-python" %}
 {% set data = load_setup_py_data() %}
 {% set version = load_file_data('pyproject.toml')["project"]["version"] %}
 
@@ -34,11 +34,10 @@ requirements:
     - occt * {{ variant }}
 
 about:
-  home: https://github.com/krande/adapy
+  home: https://github.com/ActionTestingX/app-ka-test
   license: "GPL-3.0-or-later"
   license_family: GPL3
   summary: "A python library for structural analysis and design"
-  doc_url: https://krande.github.io/adapy/
 
 extra:
   recipe-maintainers:

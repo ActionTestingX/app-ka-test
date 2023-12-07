@@ -1,8 +1,16 @@
+[build-system]
+requires = [
+    "setuptools>=42",
+    "wheel"
+]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "app-python"
 version = "0.0.7"
 authors = [{ name = "Kristoffer Andersen", email = "john.doe@whoknows.com" }]
-
+description = "A Python application"
+readme = "README.md"
 
 [tool.ruff]
 line-length = 120
