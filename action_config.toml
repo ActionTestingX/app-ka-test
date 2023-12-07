@@ -1,17 +1,29 @@
-[tool.docker]
+[[tool.docker]]
+name = "Image1"
 enabled = true
 image_name = "app-python"
 team_name = "python-team"
+dockerfile = "Dockerfile"
+context = "."
+
+[[tool.docker]]
+name = "Image2"
+enabled = true
+image_name = "app-python-worker"
+team_name = "python-team"
+dockerfile = "DockerfileWorker"
+context = "./src"
 # INFO:
 #
 # For building docker image, set to false if not needed
 #
 # This expects to find these under github repo secrets
-# secrets.CONTAINER_REGISTRY_ACR_URL 
-# secrets.CONTAINER_REGISTRY_ACR_USERNAME
-# secrets.CONTAINER_REGISTRY_ACR_PASSWORD
+# secrets.CONTAINER_REGISTRY_URL
+# secrets.CONTAINER_REGISTRY_USERNAME
+# secrets.CONTAINER_REGISTRY_PASSWORD
 
-[tool.gitops]
+
+[[tool.gitops]]
 enabled = true
 repo = "ActionTestingX/gitops-ka-test"
 file = "cluster_test/nginx-deployment-service.yaml"
