@@ -71,8 +71,7 @@ jobs:
 
   release_gitops:
     if: ${{ github.event.inputs.release_gitops == 'true' }}
-    uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-gitops.yaml@ka1
+    uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-gitops-update.yaml@ka1
     secrets:
       CONTAINER_REGISTRY_ACR_URL: ${{ secrets.CONTAINER_REGISTRY_ACR_URL }}
-      SOURCE_KEY: ${{ secrets.SOURCE_KEY }}
       GITOPS_KEY: ${{ secrets.GITOPS_KEY }}
