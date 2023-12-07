@@ -1,3 +1,4 @@
+"""This module is used to verify the toml file for the action."""
 import base64
 import json
 import os
@@ -7,10 +8,12 @@ import toml
 
 
 def check_toml():
+    """A test function docstring."""
     def set_output(name, value, encode_it=False):
+        """A test function docstring."""
         if encode_it:
             value = base64.b64encode(value.encode('utf-8')).decode('utf-8')
-        with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
+        with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as fh:
             print(f'{name}={value}', file=fh)
 
     data = toml.load(os.getenv("CONFIG_TOML_FILE"))
