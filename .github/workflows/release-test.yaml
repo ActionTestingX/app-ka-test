@@ -32,7 +32,7 @@ jobs:
       CUSTOM_PYPI_URL: ${{ secrets.CUSTOM_PYPI_URL }}
   release_conda:
     if: ${{ github.event.inputs.release_conda == 'true' }}
-    uses: ActionTestingX/action-toolbox/.github/workflows/tool-release_conda.yaml@ka1
+    uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-conda.yaml@ka1
     secrets:
       CONDA_API_TOKEN: ${{ secrets.CONDA_API_TOKEN }}
       QUETZ_API_KEY: ${{ secrets.QUETZ_API_KEY }}
