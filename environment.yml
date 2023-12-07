@@ -1,9 +1,8 @@
-name: conda-env
+name: app-ka-test
 channels:
   - conda-forge
-  - krande
 dependencies:
   - python 3.12
-  - ada-py 0.0.44
+  - toml==0.10.2
   - pytest
   - python-dotenv 1.0.0

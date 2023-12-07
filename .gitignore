@@ -4,3 +4,4 @@ __pycache__
 .idea
 dist/
 src/app_*egg-info
+temp/
