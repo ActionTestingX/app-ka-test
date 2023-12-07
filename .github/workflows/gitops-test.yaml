@@ -1,23 +1,16 @@
-name: gitops test
+name: release test
 
 on:
   workflow_dispatch:
     inputs:
-      logLevel:
-        description: 'Log level'
-        type: choice
-        options:
-          - info
-          - warning
-          - debug
-      tags:
-        description: 'Test scenario tags'
+      release-pypi:
+        description: 'Release to PyPI'
         required: false
         type: boolean
-      environment:
-        description: 'Environment to run tests against'
-        type: environment
-        required: true
+      release-conda:
+        description: 'Release to conda'
+        required: false
+        type: boolean
 
 permissions:
   id-token: write
@@ -36,3 +29,18 @@ jobs:
       - name: Print debug data
         run: |
           echo  ${{ toJson(github)}}
+
+      - name: Release Pypi
+        uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-pip.yaml@ka1
+        secrets:
+          PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+          CUSTOM_PYPI_USERNAME: ${{ secrets.CUSTOM_PYPI_USERNAME }}
+          CUSTOM_PYPI_PASSWORD: ${{ secrets.CUSTOM_PYPI_PASSWORD }}
+          CUSTOM_PYPI_URL: ${{ secrets.CUSTOM_PYPI_URL }}
+
+      - name: Release Conda
+        uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-conda.yaml@ka1
+        secrets:
+          CONDA_API_TOKEN: ${{ secrets.CONDA_API_TOKEN }}
+          QUETZ_API_KEY: ${{ secrets.QUETZ_API_KEY }}
+          QUETZ_URL: ${{ secrets.QUETZ_URL }}
