@@ -21,6 +21,14 @@ on:
         required: false
         type: boolean
         default: false
+      release_docker:
+        description: 'Release to docker'
+        required: false
+        type: boolean
+      release_gitops:
+        description: 'Release to gitops'
+        required: false
+        type: boolean
 
 permissions:
   id-token: write
@@ -53,12 +61,18 @@ jobs:
       QUETZ_API_KEY: ${{ secrets.QUETZ_API_KEY }}
       QUETZ_URL: ${{ secrets.QUETZ_URL }}
 
-  print_data:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Print debug data
-        run: |
-          echo  ${{ toJson(github)}}
+  release_docker:
+    if: ${{ github.event.inputs.release_docker == 'true' }}
+    uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-docker.yaml@ka1
+    secrets:
+      CONTAINER_REGISTRY_ACR_URL: ${{ secrets.CONTAINER_REGISTRY_ACR_URL }}
+      CONTAINER_REGISTRY_ACR_USERNAME: ${{ secrets.CONTAINER_REGISTRY_ACR_USERNAME }}
+      CONTAINER_REGISTRY_ACR_PASSWORD: ${{ secrets.CONTAINER_REGISTRY_ACR_PASSWORD }}
 
-      
-
+  release_gitops:
+    if: ${{ github.event.inputs.release_gitops == 'true' }}
+    uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-gitops.yaml@ka1
+    secrets:
+      CONTAINER_REGISTRY_ACR_URL: ${{ secrets.CONTAINER_REGISTRY_ACR_URL }}
+      SOURCE_KEY: ${{ secrets.SOURCE_KEY }}
+      GITOPS_KEY: ${{ secrets.GITOPS_KEY }}
