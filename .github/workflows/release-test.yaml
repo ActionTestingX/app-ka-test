@@ -1,0 +1,49 @@
+name: release test
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_pypi:
+        description: 'Release to PyPI'
+        required: false
+        type: boolean
+      release_conda:
+        description: 'Release to conda'
+        required: false
+        type: boolean
+
+permissions:
+  id-token: write
+  contents: write
+  pull-requests: read
+
+concurrency:
+  group: release-${{ github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  release_pypi:
+    if: ${{ github.event.inputs.release_pypi == 'true' }}
+    uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-pip.yaml@ka1
+    secrets:
+      PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+      CUSTOM_PYPI_USERNAME: ${{ secrets.CUSTOM_PYPI_USERNAME }}
+      CUSTOM_PYPI_PASSWORD: ${{ secrets.CUSTOM_PYPI_PASSWORD }}
+      CUSTOM_PYPI_URL: ${{ secrets.CUSTOM_PYPI_URL }}
+  release_conda:
+    if: ${{ github.event.inputs.release_conda == 'true' }}
+    uses: ActionTestingX/action-toolbox/.github/workflows/tool-release_conda.yaml@ka1
+    secrets:
+      CONDA_API_TOKEN: ${{ secrets.CONDA_API_TOKEN }}
+      QUETZ_API_KEY: ${{ secrets.QUETZ_API_KEY }}
+      QUETZ_URL: ${{ secrets.QUETZ_URL }}
+
+  print_data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print debug data
+        run: |
+          echo  ${{ toJson(github)}}
+
+      
+
