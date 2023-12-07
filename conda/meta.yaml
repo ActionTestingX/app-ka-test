@@ -31,7 +31,7 @@ requirements:
     - python
   run:
     - python
-    - occt * {{ variant }}
+    - occt * *{{ variant }}*
 
 about:
   home: https://github.com/ActionTestingX/app-ka-test
