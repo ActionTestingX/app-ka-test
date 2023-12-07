@@ -9,12 +9,13 @@ import toml
 
 def check_toml():
     """A test function docstring."""
+
     def set_output(name, value, encode_it=False):
         """A test function docstring."""
         if encode_it:
-            value = base64.b64encode(value.encode('utf-8')).decode('utf-8')
-        with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as fh:
-            print(f'{name}={value}', file=fh)
+            value = base64.b64encode(value.encode("utf-8")).decode("utf-8")
+        with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as fh:
+            print(f"{name}={value}", file=fh)
 
     data = toml.load(os.getenv("CONFIG_TOML_FILE"))
 
@@ -65,11 +66,11 @@ def check_toml():
     print(data)
 
 
-if __name__ == '__main__':
-    root_dir = [p for p in pathlib.Path(__file__).parents if p.name == 'src'][0].parent
-    action_toml = root_dir / 'action_config.toml'
-    os.environ['GITHUB_OUTPUT'] = 'temp/output.txt'
-    os.environ['CONFIG_TOML_FILE'] = action_toml.as_posix()
-    os.environ['PYPROJECT_TOML_FILE'] = (root_dir / 'pyproject.toml').as_posix()
-    os.makedirs(os.path.dirname(os.environ['GITHUB_OUTPUT']), exist_ok=True)
+if __name__ == "__main__":
+    root_dir = [p for p in pathlib.Path(__file__).parents if p.name == "src"][0].parent
+    action_toml = root_dir / "action_config.toml"
+    os.environ["GITHUB_OUTPUT"] = "temp/output.txt"
+    os.environ["CONFIG_TOML_FILE"] = action_toml.as_posix()
+    os.environ["PYPROJECT_TOML_FILE"] = (root_dir / "pyproject.toml").as_posix()
+    os.makedirs(os.path.dirname(os.environ["GITHUB_OUTPUT"]), exist_ok=True)
     check_toml()
