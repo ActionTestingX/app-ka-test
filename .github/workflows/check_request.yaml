@@ -33,8 +33,13 @@ jobs:
     needs: load-config
     if : ${{ needs.load-config.outputs.python_enabled == 'true' }}
     secrets:
-      CONDA_API_KEY: ${{ secrets.CONDA_API_KEY }}
-      PYPI_API_KEY: ${{ secrets.PYPI_API_KEY }}
+      CONDA_API_TOKEN: ${{ secrets.CONDA_API_TOKEN }}
+      PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+      CUSTOM_PYPI_USERNAME: ${{ secrets.CUSTOM_PYPI_USERNAME }}
+      CUSTOM_PYPI_PASSWORD: ${{ secrets.CUSTOM_PYPI_PASSWORD }}
+      CUSTOM_PYPI_URL: ${{ secrets.CUSTOM_PYPI_URL }}
+      QUETZ_API_KEY: ${{ secrets.QUETZ_API_KEY }}
+      QUETZ_URL: ${{ secrets.QUETZ_URL }}
 
   docker-review:
     uses: ActionTestingX/action-toolbox/.github/workflows/tool-review-docker.yaml@ka1
