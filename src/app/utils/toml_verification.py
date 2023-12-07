@@ -1,13 +1,12 @@
+import base64
+import json
 import os
 import pathlib
 
+import toml
+
 
 def check_toml():
-    import os
-    import base64
-    import toml
-    import json
-
     def set_output(name, value, encode_it=False):
         if encode_it:
             value = base64.b64encode(value.encode('utf-8')).decode('utf-8')
