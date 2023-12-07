@@ -17,7 +17,7 @@ def check_toml():
     data = toml.load(os.getenv("CONFIG_TOML_FILE"))
 
     # Evaluate all docker configs
-    docker_config_list = data["tool"]["docker"]
+    docker_config_list = data["tool"].get("docker", [])
     docker_enabled = False
     for docker_config in docker_config_list:
         if docker_config["enabled"]:
@@ -26,7 +26,7 @@ def check_toml():
     set_output("docker_enabled", docker_enabled)
 
     # Evalute all gitops configs
-    gitops_config_list = data["tool"]["gitops"]
+    gitops_config_list = data["tool"].get("gitops", [])
     gitops_enabled = False
     for gitops_config in gitops_config_list:
         if gitops_config["enabled"]:
@@ -36,8 +36,18 @@ def check_toml():
 
     set_output("json_enabled", data["tool"]["json"]["enabled"])
 
-    pip_enabled = data["tool"]["pip"]["enabled"]
-    conda_enabled = data["tool"]["conda"]["enabled"]
+    pip_tool = data["tool"].get("pip", None)
+    if pip_tool is None:
+        pip_enabled = False
+    else:
+        pip_enabled = data["tool"]["pip"]["enabled"]
+
+    conda_tool = data["tool"].get("conda", None)
+    if conda_tool is None:
+        conda_enabled = False
+    else:
+        conda_enabled = data["tool"]["conda"]["enabled"]
+
     python_enabled = pip_enabled or conda_enabled
 
     set_output("python_enabled", python_enabled)
@@ -58,5 +68,6 @@ if __name__ == '__main__':
     action_toml = root_dir / 'action_config.toml'
     os.environ['GITHUB_OUTPUT'] = 'temp/output.txt'
     os.environ['CONFIG_TOML_FILE'] = action_toml.as_posix()
+    os.environ['PYPROJECT_TOML_FILE'] = (root_dir / 'pyproject.toml').as_posix()
     os.makedirs(os.path.dirname(os.environ['GITHUB_OUTPUT']), exist_ok=True)
     check_toml()
