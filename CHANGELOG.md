@@ -2,6 +2,25 @@
 
 
 
+## v0.0.8 (2023-12-07)
+
+### Chore
+
+* chore: rename gitops and docker release-files so not to conflict with vr and… (#50) ([`69e7dfc`](https://github.com/ActionTestingX/app-ka-test/commit/69e7dfc799fc74ccc02ed1fd76d731017c00d47e))
+
+* chore: minor change (#46) ([`cf617a9`](https://github.com/ActionTestingX/app-ka-test/commit/cf617a92b32e516b48694fbb1074d84c7409f7db))
+
+* chore: test new tool and dispatch (#45) ([`8ac183e`](https://github.com/ActionTestingX/app-ka-test/commit/8ac183eae384bb1f7421cbe667ec6ff42f4ed9ad))
+
+### Fix
+
+* fix: do not path SOURCE_KEY to gitops release (#51) ([`d1059b8`](https://github.com/ActionTestingX/app-ka-test/commit/d1059b8fa46a49ddc4d276a1ad6c78c60c5965ea))
+
+* fix: update release test (#48) ([`b0bc432`](https://github.com/ActionTestingX/app-ka-test/commit/b0bc43280b606b1f68145d18af89e59b7b69bbeb))
+
+* fix: action reference (#47) ([`4b6a5f5`](https://github.com/ActionTestingX/app-ka-test/commit/4b6a5f5ede4cc5fe5828793b07c7cede02b78d29))
+
+
 ## v0.0.7 (2023-12-06)
 
 ### Chore
