@@ -11,6 +11,24 @@ on:
         description: 'Release to conda'
         required: false
         type: boolean
+      use_custom_pypi:
+        description: 'Use custom pypi'
+        required: false
+        type: boolean
+        default: false
+      use_conda_quetz_server:
+        description: 'Use a custom conda QUETZ server'
+        required: false
+        type: boolean
+        default: false
+      release_docker:
+        description: 'Release to docker'
+        required: false
+        type: boolean
+      release_gitops:
+        description: 'Release to gitops'
+        required: false
+        type: boolean
 
 permissions:
   id-token: write
@@ -25,25 +43,36 @@ jobs:
   release_pypi:
     if: ${{ github.event.inputs.release_pypi == 'true' }}
     uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-pip.yaml@ka1
+    with:
+      use_custom_pypi: ${{ github.event.inputs.use_custom_pypi }}
     secrets:
       PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
       CUSTOM_PYPI_USERNAME: ${{ secrets.CUSTOM_PYPI_USERNAME }}
       CUSTOM_PYPI_PASSWORD: ${{ secrets.CUSTOM_PYPI_PASSWORD }}
       CUSTOM_PYPI_URL: ${{ secrets.CUSTOM_PYPI_URL }}
+
   release_conda:
     if: ${{ github.event.inputs.release_conda == 'true' }}
     uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-conda.yaml@ka1
+    with:
+      use_quetz_server: ${{ github.event.inputs.use_conda_quetz_server }}
     secrets:
       CONDA_API_TOKEN: ${{ secrets.CONDA_API_TOKEN }}
       QUETZ_API_KEY: ${{ secrets.QUETZ_API_KEY }}
       QUETZ_URL: ${{ secrets.QUETZ_URL }}
 
-  print_data:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Print debug data
-        run: |
-          echo  ${{ toJson(github)}}
+  release_docker:
+    if: ${{ github.event.inputs.release_docker == 'true' }}
+    uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-docker.yaml@ka1
+    secrets:
+      CONTAINER_REGISTRY_ACR_URL: ${{ secrets.CONTAINER_REGISTRY_ACR_URL }}
+      CONTAINER_REGISTRY_ACR_USERNAME: ${{ secrets.CONTAINER_REGISTRY_ACR_USERNAME }}
+      CONTAINER_REGISTRY_ACR_PASSWORD: ${{ secrets.CONTAINER_REGISTRY_ACR_PASSWORD }}
 
-      
-
+  release_gitops:
+    if: ${{ github.event.inputs.release_gitops == 'true' }}
+    uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-gitops.yaml@ka1
+    secrets:
+      CONTAINER_REGISTRY_ACR_URL: ${{ secrets.CONTAINER_REGISTRY_ACR_URL }}
+      SOURCE_KEY: ${{ secrets.SOURCE_KEY }}
+      GITOPS_KEY: ${{ secrets.GITOPS_KEY }}
