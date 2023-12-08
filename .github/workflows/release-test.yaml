@@ -56,9 +56,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  load-config:
-      uses: ActionTestingX/action-toolbox/.github/workflows/tool-load-config.yaml@ka1
-
   release_pypi:
     if: ${{ github.event.inputs.release_pypi == 'true' }}
     uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-pip.yaml@ka1
