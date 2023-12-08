@@ -77,8 +77,8 @@ enabled = true
 #pkg_name_override
 conda_local_dir = "./conda"
 owner = "Krandedev"
-label = "test"
-use_custom_quetz_server = false
+use_custom_quetz_server = true
+quetz_channel = "test"
 #
 # info
 #

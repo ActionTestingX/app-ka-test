@@ -11,6 +11,11 @@ on:
         description: 'Release to conda'
         required: false
         type: boolean
+      push_conda:
+        description: 'Push to conda'
+        required: false
+        type: boolean
+        default: false
       use_custom_pypi:
         description: 'Use custom pypi'
         required: false
@@ -22,13 +27,23 @@ on:
         type: boolean
         default: false
       release_docker:
-        description: 'Release to docker'
+        description: 'Test Release to docker'
         required: false
         type: boolean
+      push_docker:
+        description: 'Push to docker'
+        required: false
+        type: boolean
+        default: false
       release_gitops:
-        description: 'Release to gitops'
+        description: 'Test Release to gitops'
         required: false
         type: boolean
+      push_gitops:
+        description: 'Push to gitops'
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   id-token: write
