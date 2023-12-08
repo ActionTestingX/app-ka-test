@@ -7,22 +7,23 @@ on:
         description: 'Release to PyPI'
         required: false
         type: boolean
-      release_conda:
-        description: 'Release to conda'
-        required: false
-        type: boolean
-      push_conda:
-        description: 'Push to conda'
-        required: false
-        type: boolean
-        default: false
       use_custom_pypi:
         description: 'Use custom pypi'
         required: false
         type: boolean
         default: false
+
+      release_conda:
+        description: 'Release to conda'
+        required: false
+        type: boolean
       use_conda_quetz_server:
         description: 'Use a custom conda QUETZ server'
+        required: false
+        type: boolean
+        default: false
+      push_conda:
+        description: 'Push to conda'
         required: false
         type: boolean
         default: false
