@@ -1,8 +1,10 @@
 """Something here"""
+import ruamel.yaml
+import pathlib
 
 
 def yaml_util(gitops_file: str, image_path: str, docker_image: str, kind: str):
-    import ruamel.yaml
+    """Update yaml file with latest docker image"""
 
     yaml = ruamel.yaml.YAML()
 
@@ -20,8 +22,6 @@ def yaml_util(gitops_file: str, image_path: str, docker_image: str, kind: str):
 
 
 if __name__ == "__main__":
-    import pathlib
-
     code_dir = [p for p in pathlib.Path(__file__).parents if p.name == "code"][0]
     gitops_dir = code_dir / "gitops-ka-test"
     yaml_file = gitops_dir / "cluster_test/nginx-deployment-service.yaml"

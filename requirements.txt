@@ -9,3 +9,4 @@ pylint==3.0.0
 python-dotenv==1.0.0
 tomlkit==0.12.1
 toml==0.10.2
+ruamel.yaml==0.17.35
