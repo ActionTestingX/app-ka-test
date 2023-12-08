@@ -1,6 +1,7 @@
 """Something here"""
-import ruamel.yaml
 import pathlib
+
+import ruamel.yaml
 
 
 def yaml_util(gitops_file: str, image_path: str, docker_image: str, kind: str):
