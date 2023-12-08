@@ -4,5 +4,6 @@ channels:
 dependencies:
   - python 3.12
   - toml==0.10.2
+  - ruamel.yaml==0.17.35
   - pytest
   - python-dotenv 1.0.0

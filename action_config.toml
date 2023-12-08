@@ -29,13 +29,16 @@ name = "GitopsDeployment"
 repo = "ActionTestingX/gitops-ka-test"
 file = "cluster_test/nginx-deployment-service.yaml"
 kind = "Deployment"
+docker_image_name = "python-team/app-python"
 image_path = '["spec"]["template"]["spec"]["containers"][0]["image"]'
+
 [[tool.gitops]]
 enabled = true
 name = "GitopsWorker"
 repo = "ActionTestingX/gitops-ka-test"
 file = "cluster_test/worker-deployment-service.yaml"
 kind = "Deployment"
+docker_image_name = "python-team/app-python-worker"
 image_path = '["spec"]["template"]["spec"]["containers"][0]["image"]'
 # INFO:
 #
