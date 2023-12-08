@@ -56,6 +56,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  load-config:
+      uses: ActionTestingX/action-toolbox/.github/workflows/tool-load-config.yaml@ka1
+
   release_pypi:
     if: ${{ github.event.inputs.release_pypi == 'true' }}
     uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-pip.yaml@ka1
@@ -93,6 +96,7 @@ jobs:
     uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-gitops-update.yaml@ka1
     with:
       push_commit: ${{ github.event.inputs.push_gitops }}
+      release_tag_override: ${{ fromJson(needs.load-config.outputs.py_data) }}["project"]["version"]
     secrets:
       CONTAINER_REGISTRY_URL: ${{ secrets.CONTAINER_REGISTRY_URL }}
       GITOPS_KEY: ${{ secrets.GITOPS_KEY }}
