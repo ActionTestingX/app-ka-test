@@ -2,6 +2,29 @@
 
 
 
+## v0.1.0 (2023-12-08)
+
+### Chore
+
+* chore: bump (#56) ([`c60b825`](https://github.com/ActionTestingX/app-ka-test/commit/c60b825ea63338ea971726e47666057ff5e12470))
+
+* chore: remove unused workflows (#55) ([`9d53dc4`](https://github.com/ActionTestingX/app-ka-test/commit/9d53dc48cbc57c19ab83f30ed5e8a0109740d431))
+
+### Feature
+
+* feat: Feature/multi docker gitops (#53) ([`2e02cfc`](https://github.com/ActionTestingX/app-ka-test/commit/2e02cfc11e9829266f90010dda8dc87acd26f3df))
+
+### Fix
+
+* fix: make variants more tolerable (#52) ([`4461e9e`](https://github.com/ActionTestingX/app-ka-test/commit/4461e9e6ff214c7facdb78c762047e21ded3bf75))
+
+### Unknown
+
+* add pr_release_sample.yaml from vr ([`45a7752`](https://github.com/ActionTestingX/app-ka-test/commit/45a7752f2da7f7b3d007bb11e94628e0f21dfe68))
+
+* add a worker deployment gitops ([`004565e`](https://github.com/ActionTestingX/app-ka-test/commit/004565ed2d8dec740989d4c05fd7214da3d82b2f))
+
+
 ## v0.0.8 (2023-12-07)
 
 ### Chore
