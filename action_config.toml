@@ -1,17 +1,17 @@
 [[tool.docker]]
-ref_name = "Image1"
 enabled = true
+ref_name = "Image1"
 image_name = "app-python"
 team_name = "python-team"
-dockerfile = "Dockerfile"
+docker_file = "Dockerfile"
 context = "."
 
 [[tool.docker]]
-ref_name = "Image2"
 enabled = true
+ref_name = "Image2"
 image_name = "app-python-worker"
 team_name = "python-team"
-dockerfile = "DockerfileWorker"
+docker_file = "DockerfileWorker"
 context = "./src"
 # INFO:
 #
@@ -61,12 +61,12 @@ package_lock_json_path = 'package-lock.json'
 [tool.pip]
 enabled = true
 #pkg_name_override = "ada-py"
-use_custom_pypi_server = true
 # info
 #
 # If you are uploading your package to public pypi.org you need to set this
 # secrets.PYPI_API_TOKEN
 #
+use_custom_pypi_server = true
 # Or if you use a custom pypi server you need to set these
 # secrets.CUSTOM_PYPI_URL
 # secrets.CUSTOM_PYPI_USERNAME
@@ -75,7 +75,7 @@ use_custom_pypi_server = true
 [tool.conda]
 enabled = true
 #pkg_name_override
-conda_local_dir = "./conda"
+recipe_dir = "./conda"
 owner = "Krandedev"
 use_custom_quetz_server = true
 quetz_channel = "test"
