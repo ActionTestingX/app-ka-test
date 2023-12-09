@@ -3,7 +3,7 @@ enabled = true
 ref_name = "Image1"
 image_name = "app-python"
 team_name = "python-team"
-dockerfile = "Dockerfile"
+docker_file = "Dockerfile"
 context = "."
 
 [[tool.docker]]
@@ -11,7 +11,7 @@ enabled = true
 ref_name = "Image2"
 image_name = "app-python-worker"
 team_name = "python-team"
-dockerfile = "DockerfileWorker"
+docker_file = "DockerfileWorker"
 context = "./src"
 # INFO:
 #
