@@ -1,6 +1,6 @@
 [[tool.docker]]
 enabled = true
-ref_name = "Image1"
+ref_name = "ImageApp"
 image_name = "app-python"
 team_name = "python-team"
 docker_file = "Dockerfile"
@@ -8,7 +8,7 @@ context = "."
 
 [[tool.docker]]
 enabled = true
-ref_name = "Image2"
+ref_name = "ImageWorker"
 image_name = "app-python-worker"
 team_name = "python-team"
 docker_file = "DockerfileWorker"
@@ -29,7 +29,7 @@ name = "GitopsDeployment"
 repo = "ActionTestingX/gitops-ka-test"
 file = "cluster_test/nginx-deployment-service.yaml"
 kind = "Deployment"
-docker_ref = "Image1"
+docker_ref = "ImageApp"
 image_path = '["spec"]["template"]["spec"]["containers"][0]["image"]'
 
 [[tool.gitops]]
@@ -38,7 +38,7 @@ name = "GitopsWorker"
 repo = "ActionTestingX/gitops-ka-test"
 file = "cluster_test/worker-deployment-service.yaml"
 kind = "Deployment"
-docker_ref = "Image2"
+docker_ref = "ImageWorker"
 image_path = '["spec"]["template"]["spec"]["containers"][0]["image"]'
 # INFO:
 #
