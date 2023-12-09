@@ -2,6 +2,23 @@
 
 
 
+## v0.2.0 (2023-12-09)
+
+### Feature
+
+* feat: Feature/conda variants (#57) ([`3d1a116`](https://github.com/ActionTestingX/app-ka-test/commit/3d1a11634acff90d8fb19b7d0dccf5e6f293b50e))
+
+### Unknown
+
+* further develop conda ([`631a040`](https://github.com/ActionTestingX/app-ka-test/commit/631a04074fab769faabcebbb4d33413e6ce969cf))
+
+* load config not needed yet ([`68dc49d`](https://github.com/ActionTestingX/app-ka-test/commit/68dc49dc46fa89b05eb86a045ce2691a47535f10))
+
+* minor refactor of release test and a ([`0093650`](https://github.com/ActionTestingX/app-ka-test/commit/0093650bfc072651f3dc10b31f3d107dc1dc193c))
+
+* fix image refs ([`8a80c6a`](https://github.com/ActionTestingX/app-ka-test/commit/8a80c6aee88f99bc8dd4a958c03dd65c18d7527b))
+
+
 ## v0.1.0 (2023-12-08)
 
 ### Chore
