@@ -2,6 +2,13 @@
 
 
 
+## v0.2.3 (2023-12-10)
+
+### Fix
+
+* fix: update release jobs (#61) ([`3cd7249`](https://github.com/ActionTestingX/app-ka-test/commit/3cd7249837e1d65df187ebb8e320a4585f3ba857))
+
+
 ## v0.2.2 (2023-12-10)
 
 ### Fix
