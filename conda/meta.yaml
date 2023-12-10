@@ -39,14 +39,13 @@ test:
   source_files:
     - tests
   commands:
-    - pytest ./tests
+    - pytest tests
   requires:
     - pytest
     - python-dotenv
     - toml
     - ruamel.yaml
     - occt * *{{ variant }}*
-  ignore_test_imports: {{ test_ignores }}
 
 about:
   home: https://github.com/ActionTestingX/app-ka-test
