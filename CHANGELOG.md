@@ -2,6 +2,17 @@
 
 
 
+## v0.2.1 (2023-12-10)
+
+### Chore
+
+* chore: trigger a new pr (#58) ([`b5a564d`](https://github.com/ActionTestingX/app-ka-test/commit/b5a564d06b4053bc0ecc2d69334a45ca9a416717))
+
+### Fix
+
+* fix: remove pylint as a test (#59) ([`ed3f5e6`](https://github.com/ActionTestingX/app-ka-test/commit/ed3f5e651227764afa4f64cc19b527b6c8c462f2))
+
+
 ## v0.2.0 (2023-12-09)
 
 ### Feature
