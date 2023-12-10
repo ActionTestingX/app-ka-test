@@ -2,6 +2,17 @@
 
 
 
+## v0.2.5 (2023-12-10)
+
+### Fix
+
+* fix: add conda testing (#63) ([`159b362`](https://github.com/ActionTestingX/app-ka-test/commit/159b36298b5c4ccd1fc117c3347496c65bb679f7))
+
+### Unknown
+
+* add conda testing ([`2af4bac`](https://github.com/ActionTestingX/app-ka-test/commit/2af4bac6da764e9202767b2572670780e2eddd4b))
+
+
 ## v0.2.4 (2023-12-10)
 
 ### Fix
