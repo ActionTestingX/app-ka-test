@@ -60,8 +60,8 @@ jobs:
           print(f"{tag_release=}")
           
           # strip v from the tag
-            if tag_release.startswith('v'):
-                tag_release = tag_release[1:]
+          if tag_release.startswith('v'):
+              tag_release = tag_release[1:]
           
           # add a pre-release "version-next.build_id" to the latest tagged release
           build_id = os.getenv('GITHUB_RUN_NUMBER')
