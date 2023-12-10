@@ -32,7 +32,7 @@ concurrency:
 
 jobs:
   load-config:
-      uses: ActionTestingX/action-toolbox/.github/workflows/tool-load-config.yaml@ka1
+    uses: ActionTestingX/action-toolbox/.github/workflows/tool-load-config.yaml@ka1
 
   # Add a step to create a patch version "next.run_id"
   bump_version:
@@ -45,7 +45,7 @@ jobs:
         with:
           fetch-depth: 0  # Fetches all history for all branches and tags
 
-      - name: Get current version
+      - name: Create "next" version
         id: get_current_version
         shell: python
         run: |
@@ -58,6 +58,10 @@ jobs:
           # get the latest tagged release          
           tag_release = os.popen('git describe --tags --abbrev=0').read().strip()
           print(f"{tag_release=}")
+          
+          # strip v from the tag
+            if tag_release.startswith('v'):
+                tag_release = tag_release[1:]
           
           # add a pre-release "version-next.build_id" to the latest tagged release
           build_id = os.getenv('GITHUB_RUN_NUMBER')
