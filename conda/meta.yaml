@@ -32,6 +32,19 @@ requirements:
   run:
     - python
     - occt * *{{ variant }}*
+    - toml==0.10.2
+    - ruamel.yaml==0.17.35
+
+test:
+  imports:
+    - {{ name }}
+  requires:
+    - pytest
+    - python-dotenv
+    - toml
+    - ruamel.yaml
+    - occt * *{{ variant }}*
+  ignore_test_imports: {{ test_ignores }}
 
 about:
   home: https://github.com/ActionTestingX/app-ka-test
