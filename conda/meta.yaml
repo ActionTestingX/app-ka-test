@@ -36,8 +36,10 @@ requirements:
     - ruamel.yaml==0.17.35
 
 test:
-  imports:
-    - {{ name }}
+  files:
+    - tests
+  commands:
+    - pytest ./tests
   requires:
     - pytest
     - python-dotenv
