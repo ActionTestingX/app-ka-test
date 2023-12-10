@@ -43,7 +43,7 @@ jobs:
     if: ${{ needs.load-config.outputs.pip_enabled == 'true' }}
     uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-pip.yaml@ka1
     with:
-      use_custom_pypi: ${{ github.event.inputs.use_custom_pypi }}
+      use_custom_pypi: ${{ needs.load-config.outputs.custom_pypi_server }}
     secrets:
       PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
       CUSTOM_PYPI_USERNAME: ${{ secrets.CUSTOM_PYPI_USERNAME }}
@@ -55,8 +55,8 @@ jobs:
     if: ${{ needs.load-config.outputs.conda_enabled == 'true' }}
     uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-conda.yaml@ka1
     with:
-      use_quetz_server: ${{ github.event.inputs.use_conda_quetz_server }}
-      push_conda: ${{ github.event.inputs.push_conda }}
+      use_quetz_server: ${{ needs.load-config.outputs.custom_quetz_server }}
+      push_conda: 'true'
     secrets:
       CONDA_API_TOKEN: ${{ secrets.CONDA_API_TOKEN }}
       QUETZ_API_KEY: ${{ secrets.QUETZ_API_KEY }}
@@ -67,8 +67,8 @@ jobs:
     if: ${{ needs.load-config.outputs.docker_enabled == 'true' }}
     uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-docker.yaml@ka1
     with:
-      push_docker: ${{ github.event.inputs.push_docker }}
-      docker_tag_override: ${{ needs.interpret_tag.outputs.tagged_release }}
+      push_docker: 'true'
+      docker_tag_override: ${{ needs.interpret_tag.outputs.version }}
     secrets:
       CONTAINER_REGISTRY_URL: ${{ secrets.CONTAINER_REGISTRY_URL }}
       CONTAINER_REGISTRY_USERNAME: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
@@ -79,8 +79,8 @@ jobs:
     if: ${{ needs.load-config.outputs.gitops_enabled == 'true' }}
     uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-gitops-update.yaml@ka1
     with:
-      push_commit: ${{ github.event.inputs.push_gitops }}
-      release_tag_override: ${{ needs.interpret_tag.outputs.tagged_release }}
+      push_commit: 'true'
+      release_tag_override: ${{ needs.interpret_tag.outputs.version }}
     secrets:
       CONTAINER_REGISTRY_URL: ${{ secrets.CONTAINER_REGISTRY_URL }}
       GITOPS_KEY: ${{ secrets.GITOPS_KEY }}
