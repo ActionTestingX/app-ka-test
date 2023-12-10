@@ -7,44 +7,19 @@ on:
         description: 'Release to PyPI'
         required: false
         type: boolean
-      use_custom_pypi:
-        description: 'Use custom pypi'
-        required: false
-        type: boolean
-        default: false
-
       release_conda:
         description: 'Release to conda'
         required: false
         type: boolean
-      use_conda_quetz_server:
-        description: 'Use a custom conda QUETZ server'
-        required: false
-        type: boolean
-        default: false
-      push_conda:
-        description: 'Push to conda'
-        required: false
-        type: boolean
-        default: false
       release_docker:
         description: 'Test Release to docker'
         required: false
         type: boolean
-      push_docker:
-        description: 'Push to docker'
-        required: false
-        type: boolean
-        default: false
       release_gitops:
         description: 'Test Release to gitops'
         required: false
         type: boolean
-      push_gitops:
-        description: 'Push to gitops'
-        required: false
-        type: boolean
-        default: false
+
 
 permissions:
   id-token: write
@@ -59,11 +34,46 @@ jobs:
   load-config:
       uses: ActionTestingX/action-toolbox/.github/workflows/tool-load-config.yaml@ka1
 
+  # Add a step to create a patch version "next.run_id"
+  bump_version:
+    runs-on: ubuntu-latest
+    outputs:
+      current_version: ${{ steps.get_current_version.outputs.current_version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get current version
+        id: get_current_version
+        shell: python
+        run: |
+          import os
+          
+          def set_output(name, value):
+            with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
+                print(f'{name}={value}', file=fh)
+          
+          # get the latest tagged release          
+          tag_release = os.popen('git describe --tags --abbrev=0').read().strip()
+          print(f"{tag_release=}")
+          
+          # add a pre-release "version-next.build_id" to the latest tagged release
+          build_id = os.getenv('GITHUB_RUN_NUMBER')
+          print(f"{build_id=}")
+          
+          # concatenate the version and build_id
+          current_version = f"{tag_release}-next{build_id}"
+          
+          print(current_version)
+          set_output('current_version', current_version)
+
   release_pypi:
     if: ${{ github.event.inputs.release_pypi == 'true' }}
+    needs: [ load-config, bump_version ]
     uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-pip.yaml@ka1
     with:
-      use_custom_pypi: ${{ github.event.inputs.use_custom_pypi }}
+      use_custom_pypi: ${{ needs.load-config.outputs.custom_pypi_server }}
+      version_override: ${{ needs.bump_version.outputs.current_version }}
     secrets:
       PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
       CUSTOM_PYPI_USERNAME: ${{ secrets.CUSTOM_PYPI_USERNAME }}
@@ -72,10 +82,12 @@ jobs:
 
   release_conda:
     if: ${{ github.event.inputs.release_conda == 'true' }}
+    needs: [ load-config, bump_version ]
     uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-conda.yaml@ka1
     with:
-      use_quetz_server: ${{ github.event.inputs.use_conda_quetz_server }}
-      push_conda: ${{ github.event.inputs.push_conda }}
+      use_quetz_server: ${{ needs.load-config.outputs.custom_quetz_server }}
+      push_conda: "true"
+      version_override: ${{ needs.bump_version.outputs.current_version }}
     secrets:
       CONDA_API_TOKEN: ${{ secrets.CONDA_API_TOKEN }}
       QUETZ_API_KEY: ${{ secrets.QUETZ_API_KEY }}
@@ -83,9 +95,11 @@ jobs:
 
   release_docker:
     if: ${{ github.event.inputs.release_docker == 'true' }}
+    needs: bump_version
     uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-docker.yaml@ka1
     with:
-      push_docker: ${{ github.event.inputs.push_docker }}
+      docker_tag_override: ${{ needs.bump_version.outputs.current_version }}
+      push_docker: "true"
     secrets:
       CONTAINER_REGISTRY_URL: ${{ secrets.CONTAINER_REGISTRY_URL }}
       CONTAINER_REGISTRY_USERNAME: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
@@ -93,10 +107,11 @@ jobs:
 
   release_gitops:
     if: ${{ github.event.inputs.release_gitops == 'true' }}
+    needs: bump_version
     uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-gitops-update.yaml@ka1
     with:
-      push_commit: ${{ github.event.inputs.push_gitops }}
-      release_tag_override: ${{ fromJson(needs.load-config.outputs.py_data) }}["project"]["version"]
+      push_commit: "true"
+      release_tag_override: ${{ needs.bump_version.outputs.current_version }}
     secrets:
       CONTAINER_REGISTRY_URL: ${{ secrets.CONTAINER_REGISTRY_URL }}
       GITOPS_KEY: ${{ secrets.GITOPS_KEY }}
