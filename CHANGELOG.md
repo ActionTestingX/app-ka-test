@@ -2,6 +2,29 @@
 
 
 
+## v0.2.4 (2023-12-10)
+
+### Fix
+
+* fix: add basic testing (#62) ([`fbd29e4`](https://github.com/ActionTestingX/app-ka-test/commit/fbd29e45d6f522ab8396e931816917a6e5741599))
+
+### Unknown
+
+* make all the release defaults true ([`a0dad09`](https://github.com/ActionTestingX/app-ka-test/commit/a0dad0973692ad131a803713dbb486610e93f6d4))
+
+* fix indent ([`d9a635b`](https://github.com/ActionTestingX/app-ka-test/commit/d9a635beb2b67bf04ae6395e65bac1c5c6a4d3da))
+
+* remove no longer used conda dirs ([`892e6c9`](https://github.com/ActionTestingX/app-ka-test/commit/892e6c9900064ee9cac0bcecd51b2707eb57ae39))
+
+* strip v from versions ([`18d3f7f`](https://github.com/ActionTestingX/app-ka-test/commit/18d3f7f76565afe2934a9b38c64743fc31d59363))
+
+* tags does not exist on action step ([`a8461ae`](https://github.com/ActionTestingX/app-ka-test/commit/a8461ae683568d031b8dc13e084bd9abc9ea5290))
+
+* update test-releases dispatch ([`0d89d4f`](https://github.com/ActionTestingX/app-ka-test/commit/0d89d4f8cf5c0e1ba94670bd58aaa5a25281c250))
+
+* fetch all history and make sure tags are included ([`0651d6e`](https://github.com/ActionTestingX/app-ka-test/commit/0651d6e11e45b9fe9b7169ff9ba45c2cbe1568a8))
+
+
 ## v0.2.3 (2023-12-10)
 
 ### Fix
