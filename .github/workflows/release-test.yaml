@@ -4,19 +4,19 @@ on:
   workflow_dispatch:
     inputs:
       release_pypi:
-        description: 'Release to PyPI'
+        description: 'Issue Pre-Release to PyPI'
         required: false
         type: boolean
       release_conda:
-        description: 'Release to conda'
+        description: 'Issue Pre-Release to conda'
         required: false
         type: boolean
       release_docker:
-        description: 'Test Release to docker'
+        description: 'Issue Pre-Release to docker'
         required: false
         type: boolean
       release_gitops:
-        description: 'Test Release to gitops'
+        description: 'Issue Pre-Release to gitops'
         required: false
         type: boolean
 
@@ -65,7 +65,7 @@ jobs:
           print(f"{build_id=}")
           
           # concatenate the version and build_id
-          current_version = f"{tag_release}-next{build_id}"
+          current_version = f"{tag_release}-next.{build_id}"
           
           print(current_version)
           set_output('current_version', current_version)
