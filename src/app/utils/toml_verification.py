@@ -62,15 +62,3 @@ def check_toml():
         pyproject_toml = os.getenv("PYPROJECT_TOML_FILE")
         py_data = toml.load(pyproject_toml)
         set_output("py_data", json.dumps(py_data), True)
-
-    print(data)
-
-
-if __name__ == "__main__":
-    root_dir = [p for p in pathlib.Path(__file__).parents if p.name == "src"][0].parent
-    action_toml = root_dir / "action_config.toml"
-    os.environ["GITHUB_OUTPUT"] = "temp/output.txt"
-    os.environ["CONFIG_TOML_FILE"] = action_toml.as_posix()
-    os.environ["PYPROJECT_TOML_FILE"] = (root_dir / "pyproject.toml").as_posix()
-    os.makedirs(os.path.dirname(os.environ["GITHUB_OUTPUT"]), exist_ok=True)
-    check_toml()
