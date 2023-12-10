@@ -1,5 +1,5 @@
-import pytest
 import pathlib
+import pytest
 
 
 @pytest.fixture

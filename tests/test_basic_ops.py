@@ -1,5 +1,6 @@
-import pathlib
 import os
+
+from app.utils.toml_verification import check_toml
 
 
 def test_basic_toml_check(root_dir):
