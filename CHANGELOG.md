@@ -2,6 +2,13 @@
 
 
 
+## v0.2.2 (2023-12-10)
+
+### Fix
+
+* fix: add necessary permissions (#60) ([`052af64`](https://github.com/ActionTestingX/app-ka-test/commit/052af64b0293ae2a5349ff99a5afe9b17e70460b))
+
+
 ## v0.2.1 (2023-12-10)
 
 ### Chore
