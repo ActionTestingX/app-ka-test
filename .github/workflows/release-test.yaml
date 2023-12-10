@@ -44,7 +44,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Fetches all history for all branches and tags
-          tags: true      # Ensures tags are also fetched
 
       - name: Get current version
         id: get_current_version
