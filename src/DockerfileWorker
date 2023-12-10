@@ -1,4 +1,4 @@
 FROM condaforge/miniforge3:latest
 
 # Install dependencies, but throw in an error to trigger a build failure
-RUN mabba install -c krande ada-py
+RUN mamba install -c krande ada-py
