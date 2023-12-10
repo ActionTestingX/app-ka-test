@@ -6,6 +6,10 @@ on:
     tags:
       - 'v*.*.*'
 
+permissions:
+  id-token: write
+  contents: write
+
 jobs:
   interpret_tag:
     runs-on: ubuntu-latest
