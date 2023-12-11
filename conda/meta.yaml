@@ -3,16 +3,6 @@
 {% set version = load_file_data('pyproject.toml')["project"]["version"] %}
 
 
-{% set build = 0 %}
-{% set test_ignores = '' %}
-
-{% if variant == "core" %}
-  {% set build = build + 100 %}
-{% else %}
-  {% set build = build + 200 %}
-{% endif %}
-
-
 package:
   name: {{ name }}
   version: {{ version }}
@@ -23,15 +13,13 @@ source:
 build:
   noarch: python
   script: python -m pip install . --no-deps -vv
-  number: {{ build }}
-  string: {{ variant }}_h{{ PKG_HASH }}_{{ build }}
+  number: 0
 
 requirements:
   host:
     - python
   run:
     - python
-    - occt * *{{ variant }}*
     - toml==0.10.2
     - ruamel.yaml==0.17.35
 
@@ -45,7 +33,6 @@ test:
     - python-dotenv
     - toml
     - ruamel.yaml
-    - occt * *{{ variant }}*
 
 about:
   home: https://github.com/ActionTestingX/app-ka-test
