@@ -2,6 +2,17 @@
 
 
 
+## v0.2.7 (2023-12-11)
+
+### Fix
+
+* fix: add minor change (#65) ([`c6ffdb7`](https://github.com/ActionTestingX/app-ka-test/commit/c6ffdb725aa38643558fca133ff7ad0aba7006f9))
+
+### Unknown
+
+* further simplify workflows ([`73e9965`](https://github.com/ActionTestingX/app-ka-test/commit/73e9965eb98c9663e73b9fac175ea137036c7c54))
+
+
 ## v0.2.6 (2023-12-11)
 
 ### Fix
