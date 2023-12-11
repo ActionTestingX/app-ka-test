@@ -75,7 +75,7 @@ jobs:
       CONTAINER_REGISTRY_PASSWORD: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
 
   release_gitops:
-    needs: [ load-config, interpret_tag ]
+    needs: [ load-config, interpret_tag, release_docker ]
     if: ${{ needs.load-config.outputs.gitops_enabled == 'true' }}
     uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-gitops-update.yaml@ka1
     with:

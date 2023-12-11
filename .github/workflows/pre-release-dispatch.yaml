@@ -1,4 +1,4 @@
-name: Pre-release test
+name: Issue pre-release
 
 on:
   workflow_dispatch:
@@ -117,7 +117,7 @@ jobs:
 
   release_gitops:
     if: ${{ github.event.inputs.release_gitops == 'true' }}
-    needs: bump_version
+    needs: [bump_version, release_docker]
     uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-gitops-update.yaml@ka1
     with:
       push_commit: "true"
