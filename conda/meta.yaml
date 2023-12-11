@@ -31,7 +31,6 @@ requirements:
     - python
   run:
     - python
-    - occt * *{{ variant }}*
     - toml==0.10.2
     - ruamel.yaml==0.17.35
 
@@ -45,7 +44,6 @@ test:
     - python-dotenv
     - toml
     - ruamel.yaml
-    - occt * *{{ variant }}*
 
 about:
   home: https://github.com/ActionTestingX/app-ka-test
