@@ -9,7 +9,7 @@ on:
 
 permissions:
   pull-requests: write
-  contents: read
+  contents: write
 
 # Use concurrency to ensure that only one instance of this workflow is running at a time
 concurrency:
