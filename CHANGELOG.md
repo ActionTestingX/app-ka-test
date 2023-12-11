@@ -2,6 +2,13 @@
 
 
 
+## v0.2.6 (2023-12-11)
+
+### Fix
+
+* fix: remove arbritrary occt dependency and number of variants (to reduce c… (#64) ([`d36f8ee`](https://github.com/ActionTestingX/app-ka-test/commit/d36f8ee86f916ec6f8f28734f1fc67cbd4b3e205))
+
+
 ## v0.2.5 (2023-12-10)
 
 ### Fix
