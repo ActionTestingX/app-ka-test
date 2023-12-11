@@ -2,6 +2,21 @@
 
 
 
+## v0.2.8 (2023-12-11)
+
+### Chore
+
+* chore: bump (#68) ([`340a595`](https://github.com/ActionTestingX/app-ka-test/commit/340a5952b1de032a778bb20872e0bbbc0a0068bf))
+
+* chore: try again (#67) ([`f10a6fb`](https://github.com/ActionTestingX/app-ka-test/commit/f10a6fb240c9b126a333d08f37b8cfaef1ae7165))
+
+* chore: minor update (#66) ([`7ee5c04`](https://github.com/ActionTestingX/app-ka-test/commit/7ee5c0411af5dcfccdaf06f4a03bae11d2d3edd0))
+
+### Fix
+
+* fix: minor change (#69) ([`f174882`](https://github.com/ActionTestingX/app-ka-test/commit/f1748823ffdae7a0232e2bcb4f5aa632c5a7af65))
+
+
 ## v0.2.7 (2023-12-11)
 
 ### Fix
