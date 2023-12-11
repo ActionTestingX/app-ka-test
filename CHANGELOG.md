@@ -2,6 +2,17 @@
 
 
 
+## v0.2.9 (2023-12-11)
+
+### Fix
+
+* fix: add a package json file (#70) ([`0c7a300`](https://github.com/ActionTestingX/app-ka-test/commit/0c7a300ced818092a9ba262d0aa7f8a3af194955))
+
+### Unknown
+
+* make gitops release wait for docker ([`66384a4`](https://github.com/ActionTestingX/app-ka-test/commit/66384a4724db2ea0c68690c458e7abedcc912fbd))
+
+
 ## v0.2.8 (2023-12-11)
 
 ### Chore
