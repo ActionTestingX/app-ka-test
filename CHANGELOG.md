@@ -2,6 +2,17 @@
 
 
 
+## v1.0.0 (2023-12-12)
+
+### Breaking
+
+* fix!: point to new home of tool (#71) ([`a8a7243`](https://github.com/ActionTestingX/app-ka-test/commit/a8a72434fb606b24090f36e40cee6866631ed6a4))
+
+### Unknown
+
+* point to new home of tool ([`ed29d19`](https://github.com/ActionTestingX/app-ka-test/commit/ed29d19f58560670a189264d98547ec75355ec7f))
+
+
 ## v0.2.9 (2023-12-11)
 
 ### Fix
