@@ -48,17 +48,9 @@ image_path = '["spec"]["template"]["spec"]["containers"][0]["image"]'
 # This expects to find these under github repo secrets
 # secrets.GITOPS_KEY
 # This key needs to be a deploy key with write privileges
-
-[tool.json]
-enabled = false
-package_json_path = 'package.json'
-package_lock_json_path = 'package-lock.json'
-# info
-#
-# Option added so it can use in a javascript projects later.
-# You want to disable this for python projects
-
-[tool.pip]
+[tool.python]
+enabled = true
+[tool.python.pip]
 enabled = true
 #pkg_name_override = "ada-py"
 # info
@@ -72,7 +64,7 @@ use_custom_pypi_server = true
 # secrets.CUSTOM_PYPI_USERNAME
 # secrets.CUSTOM_PYPI_PASSWORD
 
-[tool.conda]
+[tool.python.conda]
 enabled = true
 #pkg_name_override
 recipe_dir = "./conda"
