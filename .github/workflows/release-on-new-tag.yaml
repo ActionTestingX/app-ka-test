@@ -36,12 +36,12 @@ jobs:
           set_output('tagged_release', tag)
 
   load-config:
-    uses: ActionTestingX/action-toolbox/.github/workflows/tool-load-config.yaml@ka1
+    uses: AibelDevs/action-toolbox/.github/workflows/tool-load-config.yaml@main
 
   release_pypi:
     needs: [ load-config, interpret_tag ]
     if: ${{ needs.load-config.outputs.pip_enabled == 'true' }}
-    uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-pip.yaml@ka1
+    uses: AibelDevs/action-toolbox/.github/workflows/tool-release-pip.yaml@main
     with:
       use_custom_pypi: ${{ needs.load-config.outputs.custom_pypi_server }}
     secrets:
@@ -53,7 +53,7 @@ jobs:
   release_conda:
     needs: [ load-config, interpret_tag ]
     if: ${{ needs.load-config.outputs.conda_enabled == 'true' }}
-    uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-conda.yaml@ka1
+    uses: AibelDevs/action-toolbox/.github/workflows/tool-release-conda.yaml@main
     with:
       use_quetz_server: ${{ needs.load-config.outputs.custom_quetz_server }}
       push_conda: 'true'
@@ -65,7 +65,7 @@ jobs:
   release_docker:
     needs: [ load-config, interpret_tag ]
     if: ${{ needs.load-config.outputs.docker_enabled == 'true' }}
-    uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-docker.yaml@ka1
+    uses: AibelDevs/action-toolbox/.github/workflows/tool-release-docker.yaml@main
     with:
       push_docker: 'true'
       docker_tag_override: ${{ needs.interpret_tag.outputs.version }}
@@ -77,7 +77,7 @@ jobs:
   release_gitops:
     needs: [ load-config, interpret_tag, release_docker ]
     if: ${{ needs.load-config.outputs.gitops_enabled == 'true' }}
-    uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-gitops-update.yaml@ka1
+    uses: AibelDevs/action-toolbox/.github/workflows/tool-release-gitops-update.yaml@main
     with:
       push_commit: 'true'
       release_tag_override: ${{ needs.interpret_tag.outputs.version }}

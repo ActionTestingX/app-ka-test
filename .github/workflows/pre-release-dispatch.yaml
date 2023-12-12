@@ -36,7 +36,7 @@ concurrency:
 
 jobs:
   load-config:
-    uses: ActionTestingX/action-toolbox/.github/workflows/tool-load-config.yaml@ka1
+    uses: AibelDevs/action-toolbox/.github/workflows/tool-load-config.yaml@main
 
   # Add a step to create a patch version "next.run_id"
   bump_version:
@@ -80,7 +80,7 @@ jobs:
   release_pypi:
     if: ${{ github.event.inputs.release_pypi == 'true' }}
     needs: [ load-config, bump_version ]
-    uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-pip.yaml@ka1
+    uses: AibelDevs/action-toolbox/.github/workflows/tool-release-pip.yaml@main
     with:
       use_custom_pypi: ${{ needs.load-config.outputs.custom_pypi_server }}
       version_override: ${{ needs.bump_version.outputs.current_version }}
@@ -93,7 +93,7 @@ jobs:
   release_conda:
     if: ${{ github.event.inputs.release_conda == 'true' }}
     needs: [ load-config, bump_version ]
-    uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-conda.yaml@ka1
+    uses: AibelDevs/action-toolbox/.github/workflows/tool-release-conda.yaml@main
     with:
       use_quetz_server: ${{ needs.load-config.outputs.custom_quetz_server }}
       push_conda: "true"
@@ -106,7 +106,7 @@ jobs:
   release_docker:
     if: ${{ github.event.inputs.release_docker == 'true' }}
     needs: bump_version
-    uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-docker.yaml@ka1
+    uses: AibelDevs/action-toolbox/.github/workflows/tool-release-docker.yaml@main
     with:
       docker_tag_override: ${{ needs.bump_version.outputs.current_version }}
       push_docker: "true"
@@ -118,7 +118,7 @@ jobs:
   release_gitops:
     if: ${{ github.event.inputs.release_gitops == 'true' }}
     needs: [bump_version, release_docker]
-    uses: ActionTestingX/action-toolbox/.github/workflows/tool-release-gitops-update.yaml@ka1
+    uses: AibelDevs/action-toolbox/.github/workflows/tool-release-gitops-update.yaml@main
     with:
       push_commit: "true"
       release_tag_override: ${{ needs.bump_version.outputs.current_version }}
