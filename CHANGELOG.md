@@ -2,6 +2,21 @@
 
 
 
+## v1.1.1 (2023-12-13)
+
+### Feature
+
+* feat: add option for adding extra conda channel for deps (#76) ([`7dc6472`](https://github.com/ActionTestingX/app-ka-test/commit/7dc647285dd0657a81d3b1b74160f6b18a24a4f2))
+
+### Fix
+
+* fix: minor change (#77) ([`71ad0a6`](https://github.com/ActionTestingX/app-ka-test/commit/71ad0a6a1f66a3e1707c9f5eb5892d27d8a5d3fd))
+
+### Unknown
+
+* update branches ([`c30791c`](https://github.com/ActionTestingX/app-ka-test/commit/c30791c02ba6362fefced56452961ae8fb7bc27b))
+
+
 ## v1.1.0 (2023-12-13)
 
 ### Chore
