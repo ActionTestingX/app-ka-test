@@ -2,6 +2,25 @@
 
 
 
+## v1.1.0 (2023-12-13)
+
+### Chore
+
+* chore: use simplified tools (#72) ([`135b7a3`](https://github.com/ActionTestingX/app-ka-test/commit/135b7a3c20de96b420999644a6219d1ac9c39c5d))
+
+### Feature
+
+* feat: do another test (#75) ([`f7c50f6`](https://github.com/ActionTestingX/app-ka-test/commit/f7c50f661ff69f05ea62fab9480bf16d836d9008))
+
+* feat: bump (#74) ([`4f00260`](https://github.com/ActionTestingX/app-ka-test/commit/4f00260f25ac756c2d7f23b071bce8730c5f4d80))
+
+* feat: test new force override tag gen (#73) ([`5d41dba`](https://github.com/ActionTestingX/app-ka-test/commit/5d41dba65d98830fe55a7a3ebd9a9b86a8d560cd))
+
+### Unknown
+
+* use simplified tools ([`f4f14e4`](https://github.com/ActionTestingX/app-ka-test/commit/f4f14e40ee5b0a05f66586a9fb56b77b8ed74599))
+
+
 ## v1.0.1-next.1 (2023-12-12)
 
 
