@@ -2,13 +2,30 @@
 
 
 
+## v1.3.0 (2023-12-14)
+
+### Feature
+
+* feat: Test fixes in changelog (#79) ([`584184b`](https://github.com/ActionTestingX/app-ka-test/commit/584184b824d3b1d5c5648642b38a551f293ad52c))
+
+### Unknown
+
+* point to main ([`081bc88`](https://github.com/ActionTestingX/app-ka-test/commit/081bc88bf6f81fbcc2497d6619e90595210bd0c4))
+
+* fix up CHANGELOG.md ([`70a8a0f`](https://github.com/ActionTestingX/app-ka-test/commit/70a8a0f800ccb462d5867cedff09d87d5e29f3b9))
+
+* point to latest test branch ([`1a8cb73`](https://github.com/ActionTestingX/app-ka-test/commit/1a8cb73559080a3f216d225ffbf6e48bb6a9e4c0))
+
+* point to main branch now that pr is merged ([`9d0217a`](https://github.com/ActionTestingX/app-ka-test/commit/9d0217a2e273637f5fc91fab86b547ff8757e36e))
+
+
 ## v1.2.0 (2023-12-14)
 
 ### Feature
 
 * feat: bump (#78) ([`6f4e848`](https://github.com/ActionTestingX/app-ka-test/commit/6f4e84862744a29256a4dbad64ba8f84c758db50))
 
-### Chore
+### Unknown
 
 * add option for pushing to BOTH anaconda and quetz ([`b7e860f`](https://github.com/ActionTestingX/app-ka-test/commit/b7e860f16d09474dc0ac3ee246a61d70a19b72fd))
 
@@ -25,7 +42,7 @@
 
 * fix: minor change (#77) ([`71ad0a6`](https://github.com/ActionTestingX/app-ka-test/commit/71ad0a6a1f66a3e1707c9f5eb5892d27d8a5d3fd))
 
-### Chore
+### Unknown
 
 * update branches ([`c30791c`](https://github.com/ActionTestingX/app-ka-test/commit/c30791c02ba6362fefced56452961ae8fb7bc27b))
 
@@ -44,7 +61,7 @@
 
 * feat: test new force override tag gen (#73) ([`5d41dba`](https://github.com/ActionTestingX/app-ka-test/commit/5d41dba65d98830fe55a7a3ebd9a9b86a8d560cd))
 
-### Chore
+### Unknown
 
 * use simplified tools ([`f4f14e4`](https://github.com/ActionTestingX/app-ka-test/commit/f4f14e40ee5b0a05f66586a9fb56b77b8ed74599))
 
@@ -58,7 +75,7 @@
 
 * fix!: point to new home of tool (#71) ([`a8a7243`](https://github.com/ActionTestingX/app-ka-test/commit/a8a72434fb606b24090f36e40cee6866631ed6a4))
 
-### Chore
+### Unknown
 
 * point to new home of tool ([`ed29d19`](https://github.com/ActionTestingX/app-ka-test/commit/ed29d19f58560670a189264d98547ec75355ec7f))
 
@@ -69,7 +86,7 @@
 
 * fix: add a package json file (#70) ([`0c7a300`](https://github.com/ActionTestingX/app-ka-test/commit/0c7a300ced818092a9ba262d0aa7f8a3af194955))
 
-### Chore
+### Unknown
 
 * make gitops release wait for docker ([`66384a4`](https://github.com/ActionTestingX/app-ka-test/commit/66384a4724db2ea0c68690c458e7abedcc912fbd))
 
@@ -95,7 +112,7 @@
 
 * fix: add minor change (#65) ([`c6ffdb7`](https://github.com/ActionTestingX/app-ka-test/commit/c6ffdb725aa38643558fca133ff7ad0aba7006f9))
 
-### Chore
+### Unknown
 
 * further simplify workflows ([`73e9965`](https://github.com/ActionTestingX/app-ka-test/commit/73e9965eb98c9663e73b9fac175ea137036c7c54))
 
@@ -113,7 +130,7 @@
 
 * fix: add conda testing (#63) ([`159b362`](https://github.com/ActionTestingX/app-ka-test/commit/159b36298b5c4ccd1fc117c3347496c65bb679f7))
 
-### Chore
+### Unknown
 
 * add conda testing ([`2af4bac`](https://github.com/ActionTestingX/app-ka-test/commit/2af4bac6da764e9202767b2572670780e2eddd4b))
 
@@ -124,7 +141,7 @@
 
 * fix: add basic testing (#62) ([`fbd29e4`](https://github.com/ActionTestingX/app-ka-test/commit/fbd29e45d6f522ab8396e931816917a6e5741599))
 
-### Chore
+### Unknown
 
 * make all the release defaults true ([`a0dad09`](https://github.com/ActionTestingX/app-ka-test/commit/a0dad0973692ad131a803713dbb486610e93f6d4))
 
@@ -172,7 +189,7 @@
 
 * feat: Feature/conda variants (#57) ([`3d1a116`](https://github.com/ActionTestingX/app-ka-test/commit/3d1a11634acff90d8fb19b7d0dccf5e6f293b50e))
 
-### Chore
+### Unknown
 
 * further develop conda ([`631a040`](https://github.com/ActionTestingX/app-ka-test/commit/631a04074fab769faabcebbb4d33413e6ce969cf))
 
@@ -199,7 +216,7 @@
 
 * fix: make variants more tolerable (#52) ([`4461e9e`](https://github.com/ActionTestingX/app-ka-test/commit/4461e9e6ff214c7facdb78c762047e21ded3bf75))
 
-### Chore
+### Unknown
 
 * add pr_release_sample.yaml from vr ([`45a7752`](https://github.com/ActionTestingX/app-ka-test/commit/45a7752f2da7f7b3d007bb11e94628e0f21dfe68))
 
@@ -244,7 +261,7 @@
 
 * fix: update conditional handling (#41) ([`4b2ad87`](https://github.com/ActionTestingX/app-ka-test/commit/4b2ad870f4cf0ca8fcc96d8e45abca4eb0c425b9))
 
-### Chore
+### Unknown
 
 * rewrite README.md (#40) ([`6626bf0`](https://github.com/ActionTestingX/app-ka-test/commit/6626bf0441a6f4410d5bf04b492acbfb82861934))
 
@@ -269,7 +286,7 @@
 
 * fix: update release workflow file (#38) ([`30b00c1`](https://github.com/ActionTestingX/app-ka-test/commit/30b00c1e8da9dd50444a8c2194dfbecb9b6eb22d))
 
-### Chore
+### Unknown
 
 * remove todo&#39;s (#36) ([`960261e`](https://github.com/ActionTestingX/app-ka-test/commit/960261eb098d99dd278e647e646e7c1c891baef5))
 
@@ -292,7 +309,7 @@
 
 * fix: add needs for pip-conda-checker and include next version based on labels (#30) ([`d15985c`](https://github.com/ActionTestingX/app-ka-test/commit/d15985c317aae0b68f20ecad5ed8abec41c5203d))
 
-### Chore
+### Unknown
 
 * Feature/add pr version review (#28) ([`85e0a08`](https://github.com/ActionTestingX/app-ka-test/commit/85e0a085b021a099f89257443994c7108aa2e0f4))
 
@@ -325,7 +342,7 @@
 
 * fix: minor change (#16) ([`f38531c`](https://github.com/ActionTestingX/app-ka-test/commit/f38531cbaa58faec3a625266df092f467fad4208))
 
-### Chore
+### Unknown
 
 * minor change (#15) ([`f0f2bc9`](https://github.com/ActionTestingX/app-ka-test/commit/f0f2bc9bf82b15472493372c7726d13018654d2b))
 
@@ -353,6 +370,6 @@
 
 * chore: add environment.yml (#1) ([`8eb5b77`](https://github.com/ActionTestingX/app-ka-test/commit/8eb5b77fe457e64bff99544454bddcb194990c5d))
 
-### Chore
+### Unknown
 
 * Initial commit ([`596aafd`](https://github.com/ActionTestingX/app-ka-test/commit/596aafd7fb38063b491bf01146e66d2a4fd196ad))
