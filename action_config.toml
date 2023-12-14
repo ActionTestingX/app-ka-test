@@ -50,6 +50,8 @@ image_path = '["spec"]["template"]["spec"]["containers"][0]["image"]'
 # This key needs to be a deploy key with write privileges
 [tool.python]
 enabled = true
+pre_release_tag = "dev"
+
 [tool.python.pip]
 enabled = true
 #pkg_name_override = "ada-py"
