@@ -67,11 +67,20 @@ use_custom_pypi_server = true
 [tool.python.conda]
 enabled = true
 #pkg_name_override
+# Related to Conda Build recipe
 recipe_dir = "./conda"
+extra_conda_dep_channels = ["krande"]
+# dep channels can be either anaconda channels (ie. "conda-forge") or custom channels.
+# OR it can be quetz url "https://<my-quetz-server>.com/get/<channel>"
+
+# Anaconda Related
+use_anaconda_server = true
 owner = "Krandedev"
 label = "dev"
-use_custom_quetz_server = false
-extra_conda_dep_channels = ["krande"]
+
+# Quetz related
+use_custom_quetz_server = true
+
 quetz_channel = "test"
 #
 # info
