@@ -2,6 +2,19 @@
 
 
 
+## v1.2.0 (2023-12-14)
+
+### Feature
+
+* feat: bump (#78) ([`6f4e848`](https://github.com/ActionTestingX/app-ka-test/commit/6f4e84862744a29256a4dbad64ba8f84c758db50))
+
+### Unknown
+
+* add option for pushing to BOTH anaconda and quetz ([`b7e860f`](https://github.com/ActionTestingX/app-ka-test/commit/b7e860f16d09474dc0ac3ee246a61d70a19b72fd))
+
+* minor change ([`85f7a46`](https://github.com/ActionTestingX/app-ka-test/commit/85f7a46bcf68495d0b5bc256352bcd9adb68d428))
+
+
 ## v1.1.1 (2023-12-13)
 
 ### Feature
