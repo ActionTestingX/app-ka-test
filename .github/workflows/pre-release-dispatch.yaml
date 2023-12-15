@@ -24,7 +24,7 @@ on:
         type: boolean
         default: true
       release_level:
-        description: 'Pre-release level'
+        description: 'Pre-release level (rebuild will not bump version)'
         required: false
         type: choice
         default: "patch"
@@ -51,6 +51,7 @@ jobs:
       release_conda: ${{ github.event.inputs.release_conda }}
       release_docker: ${{ github.event.inputs.release_docker }}
       release_gitops: ${{ github.event.inputs.release_gitops }}
+      pre_release_level: ${{ github.event.inputs.release_level }}
     secrets:
       SOURCE_KEY: ${{ secrets.SOURCE_KEY }}
       CONDA_API_TOKEN: ${{ secrets.CONDA_API_TOKEN }}
