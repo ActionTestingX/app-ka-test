@@ -32,6 +32,7 @@ on:
           - "patch"
           - "minor"
           - "major"
+          - "rebuild"
 
 permissions:
   id-token: write
