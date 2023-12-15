@@ -24,7 +24,7 @@ on:
         type: boolean
         default: true
       release_level:
-        description: 'Pre-release level (rebuild will not bump version)'
+        description: 'Pre-release level (rebuild=latest tag)'
         required: false
         type: choice
         default: "patch"
