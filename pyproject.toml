@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "app-python"
-version = "1.3.2"
+version = "1.4.0"
 authors = [{ name = "Kristoffer Andersen", email = "john.doe@whoknows.com" }]
 description = "A Python application"
 readme = "README.md"
