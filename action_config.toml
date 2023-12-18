@@ -1,5 +1,5 @@
 [[tool.docker]]
-enabled = true
+enabled = false
 ref_name = "ImageApp"
 image_name = "app-python"
 team_name = "python-team"
