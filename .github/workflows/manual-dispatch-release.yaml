@@ -30,7 +30,7 @@ concurrency:
 jobs:
   release_if_ok:
     if: github.event.inputs.verification == "yes"
-    uses: ./.github/workflows/tool-generate-semantic-version.yaml
+    uses: AibelDevs/action-toolbox/.github/workflows/tool-generate-semantic-version.yaml@main
     with:
       config_toml_file: "action_config.toml"
     secrets:
