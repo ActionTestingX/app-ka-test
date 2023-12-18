@@ -70,7 +70,7 @@ def check_toml2():
             print(f"{name}={value}", file=fh)
 
     label_names = json.loads(os.environ["LABELS"])
-    rel_labels = {l for l in label_names if l.startswith("release-")}
+    rel_labels = {label for label in label_names if label.startswith("release-")}
     if len(rel_labels) == 0:
         rel_labels.add("release-skip")
 
