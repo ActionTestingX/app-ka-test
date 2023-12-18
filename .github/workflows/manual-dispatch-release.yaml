@@ -33,6 +33,6 @@ jobs:
     uses: AibelDevs/action-toolbox/.github/workflows/tool-generate-semantic-version.yaml@fix/manual-dispatch
     with:
       config_toml_file: "action_config.toml"
-      release_level: --${{ github.event.inputs.release_level }} if ${{ github.event.inputs.release_level != 'auto' }} else ''
+      release_level: --${{ inputs.release_level }} if ${{ inputs.release_level != 'auto' }} else ''
     secrets:
       SOURCE_KEY: ${{ secrets.SOURCE_KEY }}
