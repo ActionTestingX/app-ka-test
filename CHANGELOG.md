@@ -2,6 +2,59 @@
 
 
 
+## v1.3.1 (2023-12-18)
+
+### Fix
+
+* fix: update refs (#80) ([`69011ae`](https://github.com/ActionTestingX/app-ka-test/commit/69011ae9d70b476987d4d2d22683141e1e464951))
+
+### Unknown
+
+* fix passing in variable to release_override ([`4898c12`](https://github.com/ActionTestingX/app-ka-test/commit/4898c12463b637dbf8963336c038e7d03ffcfcc7))
+
+* use correct input variable ([`6f98ef9`](https://github.com/ActionTestingX/app-ka-test/commit/6f98ef95ca2f26b6ebd89682ae621baa94e20311))
+
+* use inputs ([`d013a3a`](https://github.com/ActionTestingX/app-ka-test/commit/d013a3a56181e13301e236ec98bc8843012685ba))
+
+* do not use quotes ([`1665ab2`](https://github.com/ActionTestingX/app-ka-test/commit/1665ab2ad9433b6a2aaab261165e2ef9f9f0b751))
+
+* use single quotes ([`c862855`](https://github.com/ActionTestingX/app-ka-test/commit/c8628556f9d617f6ba7f8927142102a8c982fb4c))
+
+* pass in release level and allow running ([`050b1f4`](https://github.com/ActionTestingX/app-ka-test/commit/050b1f4a9660d742c445e8a7c3a599ce9f73db09))
+
+* do not pass in override ([`d90e80b`](https://github.com/ActionTestingX/app-ka-test/commit/d90e80b855b7f5354681d7b93a28d114db314e8a))
+
+* add release override as an input ([`9802203`](https://github.com/ActionTestingX/app-ka-test/commit/9802203b28851acde29889f2003471df9d8ebf3a))
+
+* ref local path ([`916246d`](https://github.com/ActionTestingX/app-ka-test/commit/916246deeb9fc45691eda6623e9d6023a5ae30df))
+
+* use different quotes ([`dd2a328`](https://github.com/ActionTestingX/app-ka-test/commit/dd2a328f42424162a2d40f5903a8348f435fc4d2))
+
+* test something else ([`b5f0347`](https://github.com/ActionTestingX/app-ka-test/commit/b5f034765a01f6d4605e46c34400a89b2374eab2))
+
+* minor fix ([`5afbf9a`](https://github.com/ActionTestingX/app-ka-test/commit/5afbf9a08eb989fd0e9772a71283e16c409b996e))
+
+* minor fix ([`00e329d`](https://github.com/ActionTestingX/app-ka-test/commit/00e329d7825a40ce7f01a8e7ab064975e717e7c0))
+
+* update string input ([`7d9738a`](https://github.com/ActionTestingX/app-ka-test/commit/7d9738aec226c49ac245e304767958e8b96198df))
+
+* point to main bran ([`2ce4024`](https://github.com/ActionTestingX/app-ka-test/commit/2ce402402e8f58600633878296efa085facc5c78))
+
+* add manual dispatch test ([`1102572`](https://github.com/ActionTestingX/app-ka-test/commit/110257206050be2b47d8141d1ad9e8a0247d69b1))
+
+* update refs ([`f8d5c8c`](https://github.com/ActionTestingX/app-ka-test/commit/f8d5c8cda3bdc7fae725c0dc0d9c3a5465f3c035))
+
+* make description text shorter ([`bb3ea79`](https://github.com/ActionTestingX/app-ka-test/commit/bb3ea79ef6c484cfc4cb1f4bdc02dfe273d0708f))
+
+* pass in pre-release level ([`0653455`](https://github.com/ActionTestingX/app-ka-test/commit/0653455c19e550f1b92473fb4d4e9e65aaf49017))
+
+* update alternatives ([`1a65ba2`](https://github.com/ActionTestingX/app-ka-test/commit/1a65ba2481111f9b5a20887c72fb2b4da4ffbb23))
+
+* test passing in the desired pre-release level (ie. patch, minor or major). Default is patch ([`1ec5e9b`](https://github.com/ActionTestingX/app-ka-test/commit/1ec5e9b3bd42de5b7b088fe78ae8b2fe6c31d851))
+
+* test new pre-release calculation ([`29e4123`](https://github.com/ActionTestingX/app-ka-test/commit/29e4123bc878a5691431d1cfbb22a73b977a0299))
+
+
 ## v1.3.0 (2023-12-14)
 
 ### Feature
