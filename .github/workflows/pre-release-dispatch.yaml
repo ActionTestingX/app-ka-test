@@ -45,7 +45,7 @@ concurrency:
 
 jobs:
   run:
-    uses: AibelDevs/action-toolbox/.github/workflows/default-tool-pre-release-dispatch.yaml@fix/manual-dispatch
+    uses: AibelDevs/action-toolbox/.github/workflows/default-tool-pre-release-dispatch.yaml@main
     with:
       release_pypi: ${{ github.event.inputs.release_pypi }}
       release_conda: ${{ github.event.inputs.release_conda }}
