@@ -2,6 +2,17 @@
 
 
 
+## v1.4.2 (2023-12-21)
+
+### Fix
+
+* fix: test updates to docker builds (#83) ([`101cea8`](https://github.com/Krande/app-ka-test/commit/101cea85ad5fb51241b7586951085e208b99fb36))
+
+### Unknown
+
+* test updates to docker builds ([`2d827c2`](https://github.com/Krande/app-ka-test/commit/2d827c28b8854f116bdeadccf2de2c3b19593512))
+
+
 ## v1.4.1 (2023-12-20)
 
 ### Fix
