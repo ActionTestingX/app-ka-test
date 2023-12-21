@@ -1,5 +1,6 @@
 [[tool.docker]]
 enabled = true
+use_latest = true
 ref_name = "ImageApp"
 image_name = "app-python"
 team_name = "python-team"
