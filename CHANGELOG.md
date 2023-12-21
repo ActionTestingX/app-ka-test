@@ -2,6 +2,13 @@
 
 
 
+## v1.4.3 (2023-12-21)
+
+### Fix
+
+* fix: test again (#84) ([`97a14d5`](https://github.com/Krande/app-ka-test/commit/97a14d58914585a67b7d01020239791d993583ed))
+
+
 ## v1.4.2 (2023-12-21)
 
 ### Fix
